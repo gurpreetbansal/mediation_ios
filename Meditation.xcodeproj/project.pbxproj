@@ -1,0 +1,988 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		181AC76823D6CC7900E5ABFF /* SelectCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AC76723D6CC7900E5ABFF /* SelectCategoriesViewController.swift */; };
+		181FF82723D80E590089461B /* Comfortaa-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181FF82423D80E590089461B /* Comfortaa-Light.ttf */; };
+		181FF82823D80E590089461B /* Comfortaa-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181FF82523D80E590089461B /* Comfortaa-Bold.ttf */; };
+		181FF82923D80E590089461B /* Comfortaa-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181FF82623D80E590089461B /* Comfortaa-Regular.ttf */; };
+		181FF82B23D839500089461B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181FF82A23D839500089461B /* SettingsViewController.swift */; };
+		181FF82D23D85CE50089461B /* MusicPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181FF82C23D85CE50089461B /* MusicPlayerViewController.swift */; };
+		181FF82F23D8791F0089461B /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181FF82E23D8791F0089461B /* SessionViewController.swift */; };
+		181FF83123D889060089461B /* MyAffirmationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181FF83023D889060089461B /* MyAffirmationsViewController.swift */; };
+		1827F72C240E7F3B006832A0 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1827F72B240E7F3B006832A0 /* MusicPlayer.swift */; };
+		1835B97423E8341C0012E133 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1835B97323E8341B0012E133 /* WebKit.framework */; };
+		18462F0823D9DE3F005D1E17 /* MyFavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18462F0723D9DE3F005D1E17 /* MyFavouriteViewController.swift */; };
+		1846C2DF23D6E468003BA6C3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C2DE23D6E468003BA6C3 /* TabBarController.swift */; };
+		1846C2E123D7059C003BA6C3 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C2E023D7059C003BA6C3 /* LibraryViewController.swift */; };
+		1846C2E323D7241A003BA6C3 /* SoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C2E223D7241A003BA6C3 /* SoundsViewController.swift */; };
+		1846C2E523D72436003BA6C3 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C2E423D72436003BA6C3 /* RecordViewController.swift */; };
+		1846C2E723D72446003BA6C3 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1846C2E623D72446003BA6C3 /* AccountViewController.swift */; };
+		1865D1262410D29F00586C8D /* modelclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1865D1252410D29F00586C8D /* modelclass.swift */; };
+		1874E723240D0D8A00BB9387 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874E722240D0D8900BB9387 /* NetworkService.swift */; };
+		1874E725240D0E1300BB9387 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874E724240D0E1300BB9387 /* Singleton.swift */; };
+		1874E727240D0E3400BB9387 /* constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874E726240D0E3400BB9387 /* constant.swift */; };
+		1874E729240D305700BB9387 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1874E728240D305700BB9387 /* credentials.plist */; };
+		18823B1623DB1D67009908F1 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18823B1523DB1D67009908F1 /* PrivacyPolicyViewController.swift */; };
+		1888B52A23D96A4B00130AA5 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888B52923D96A4B00130AA5 /* NotificationViewController.swift */; };
+		1888B52C23D979BB00130AA5 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888B52B23D979BB00130AA5 /* SupportViewController.swift */; };
+		1888B52E23D97BA900130AA5 /* HelpSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888B52D23D97BA900130AA5 /* HelpSupportViewController.swift */; };
+		1888B53023D9827000130AA5 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888B52F23D9827000130AA5 /* AccountSettingViewController.swift */; };
+		1888B53223D9ACF300130AA5 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888B53123D9ACF300130AA5 /* SignInViewController.swift */; };
+		18AD034C23D57B9200DB0757 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD034B23D57B9200DB0757 /* AppDelegate.swift */; };
+		18AD035123D57B9200DB0757 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AD034F23D57B9200DB0757 /* Main.storyboard */; };
+		18AD035423D57B9200DB0757 /* Meditation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18AD035223D57B9200DB0757 /* Meditation.xcdatamodeld */; };
+		18AD035623D57B9800DB0757 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18AD035523D57B9800DB0757 /* Assets.xcassets */; };
+		18AD035923D57B9800DB0757 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18AD035723D57B9800DB0757 /* LaunchScreen.storyboard */; };
+		18AD036423D57B9800DB0757 /* MeditationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD036323D57B9800DB0757 /* MeditationTests.swift */; };
+		18AD036F23D57B9800DB0757 /* MeditationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD036E23D57B9800DB0757 /* MeditationUITests.swift */; };
+		18AD038723D58AA500DB0757 /* Designable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038623D58AA500DB0757 /* Designable.swift */; };
+		18AD038923D58AB200DB0757 /* ExtensionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038823D58AB200DB0757 /* ExtensionClass.swift */; };
+		18AD038B23D58AC100DB0757 /* LBZSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038A23D58AC100DB0757 /* LBZSpinner.swift */; };
+		18AD038D23D5AF9500DB0757 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038C23D5AF9500DB0757 /* RegisterViewController.swift */; };
+		18AD038F23D5D68000DB0757 /* SelectVoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038E23D5D68000DB0757 /* SelectVoiceViewController.swift */; };
+		18AD039123D5D88700DB0757 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD039023D5D88700DB0757 /* Common.swift */; };
+		9BD15CBE3CFF9EB9C1DE97BE /* Pods_Meditation_MeditationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */; };
+		AB80B3207F3E8AE6E12BB843 /* Pods_Meditation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C229952E84815CFABE04B78 /* Pods_Meditation.framework */; };
+		CAFACD02BFAE75CFFCA702B2 /* Pods_MeditationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18AD036023D57B9800DB0757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18AD034023D57B9200DB0757 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18AD034723D57B9200DB0757;
+			remoteInfo = Meditation;
+		};
+		18AD036B23D57B9800DB0757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18AD034023D57B9200DB0757 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18AD034723D57B9200DB0757;
+			remoteInfo = Meditation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		08BFFD38BC24080339A759B5 /* Pods-Meditation-MeditationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation-MeditationUITests.debug.xcconfig"; path = "Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		181AC76723D6CC7900E5ABFF /* SelectCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoriesViewController.swift; sourceTree = "<group>"; };
+		181FF82423D80E590089461B /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Light.ttf"; sourceTree = "<group>"; };
+		181FF82523D80E590089461B /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
+		181FF82623D80E590089461B /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
+		181FF82A23D839500089461B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		181FF82C23D85CE50089461B /* MusicPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerViewController.swift; sourceTree = "<group>"; };
+		181FF82E23D8791F0089461B /* SessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
+		181FF83023D889060089461B /* MyAffirmationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAffirmationsViewController.swift; sourceTree = "<group>"; };
+		1827F72B240E7F3B006832A0 /* MusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
+		1835B97323E8341B0012E133 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		18462F0723D9DE3F005D1E17 /* MyFavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavouriteViewController.swift; sourceTree = "<group>"; };
+		1846C2DE23D6E468003BA6C3 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		1846C2E023D7059C003BA6C3 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		1846C2E223D7241A003BA6C3 /* SoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewController.swift; sourceTree = "<group>"; };
+		1846C2E423D72436003BA6C3 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		1846C2E623D72446003BA6C3 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		1865D1252410D29F00586C8D /* modelclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modelclass.swift; sourceTree = "<group>"; };
+		1874E722240D0D8900BB9387 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		1874E724240D0E1300BB9387 /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		1874E726240D0E3400BB9387 /* constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constant.swift; sourceTree = "<group>"; };
+		1874E728240D305700BB9387 /* credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = credentials.plist; sourceTree = SOURCE_ROOT; };
+		18823B1523DB1D67009908F1 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		1888B52923D96A4B00130AA5 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		1888B52B23D979BB00130AA5 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
+		1888B52D23D97BA900130AA5 /* HelpSupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSupportViewController.swift; sourceTree = "<group>"; };
+		1888B52F23D9827000130AA5 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
+		1888B53123D9ACF300130AA5 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		18AA00352418B6EB00AB017C /* Meditation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meditation.entitlements; sourceTree = "<group>"; };
+		18AD034823D57B9200DB0757 /* Meditation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meditation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AD034B23D57B9200DB0757 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		18AD035023D57B9200DB0757 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		18AD035323D57B9200DB0757 /* Meditation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Meditation.xcdatamodel; sourceTree = "<group>"; };
+		18AD035523D57B9800DB0757 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18AD035823D57B9800DB0757 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		18AD035A23D57B9800DB0757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18AD035F23D57B9800DB0757 /* MeditationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeditationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AD036323D57B9800DB0757 /* MeditationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationTests.swift; sourceTree = "<group>"; };
+		18AD036523D57B9800DB0757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18AD036A23D57B9800DB0757 /* MeditationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeditationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AD036E23D57B9800DB0757 /* MeditationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationUITests.swift; sourceTree = "<group>"; };
+		18AD037023D57B9800DB0757 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18AD038623D58AA500DB0757 /* Designable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Designable.swift; sourceTree = "<group>"; };
+		18AD038823D58AB200DB0757 /* ExtensionClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionClass.swift; sourceTree = "<group>"; };
+		18AD038A23D58AC100DB0757 /* LBZSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LBZSpinner.swift; sourceTree = "<group>"; };
+		18AD038C23D5AF9500DB0757 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		18AD038E23D5D68000DB0757 /* SelectVoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVoiceViewController.swift; sourceTree = "<group>"; };
+		18AD039023D5D88700DB0757 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		1A0FE023B4011E74DFA8E412 /* Pods-MeditationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeditationTests.debug.xcconfig"; path = "Target Support Files/Pods-MeditationTests/Pods-MeditationTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2C229952E84815CFABE04B78 /* Pods_Meditation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meditation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B4499A50130363135D946F2 /* Pods-MeditationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeditationTests.release.xcconfig"; path = "Target Support Files/Pods-MeditationTests/Pods-MeditationTests.release.xcconfig"; sourceTree = "<group>"; };
+		80B5070893B58EB2482013CD /* Pods-Meditation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation.debug.xcconfig"; path = "Target Support Files/Pods-Meditation/Pods-Meditation.debug.xcconfig"; sourceTree = "<group>"; };
+		9934D0BC64302836FFDB8244 /* Pods-Meditation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation.release.xcconfig"; path = "Target Support Files/Pods-Meditation/Pods-Meditation.release.xcconfig"; sourceTree = "<group>"; };
+		C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeditationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D61F833D16E3E2AF2530424D /* Pods-Meditation-MeditationUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation-MeditationUITests.release.xcconfig"; path = "Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meditation_MeditationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18AD034523D57B9200DB0757 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1835B97423E8341C0012E133 /* WebKit.framework in Frameworks */,
+				AB80B3207F3E8AE6E12BB843 /* Pods_Meditation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AD035C23D57B9800DB0757 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAFACD02BFAE75CFFCA702B2 /* Pods_MeditationTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AD036723D57B9800DB0757 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BD15CBE3CFF9EB9C1DE97BE /* Pods_Meditation_MeditationUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07652BD3EE595B11E2C84EAA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1835B97323E8341B0012E133 /* WebKit.framework */,
+				2C229952E84815CFABE04B78 /* Pods_Meditation.framework */,
+				F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */,
+				C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1874E721240D0D5700BB9387 /* NetworkReachable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetworkReachable;
+			sourceTree = "<group>";
+		};
+		18AD033F23D57B9200DB0757 = {
+			isa = PBXGroup;
+			children = (
+				18AD034A23D57B9200DB0757 /* Meditation */,
+				18AD036223D57B9800DB0757 /* MeditationTests */,
+				18AD036D23D57B9800DB0757 /* MeditationUITests */,
+				18AD034923D57B9200DB0757 /* Products */,
+				20B0C5DB42515D729509A57A /* Pods */,
+				07652BD3EE595B11E2C84EAA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		18AD034923D57B9200DB0757 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18AD034823D57B9200DB0757 /* Meditation.app */,
+				18AD035F23D57B9800DB0757 /* MeditationTests.xctest */,
+				18AD036A23D57B9800DB0757 /* MeditationUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18AD034A23D57B9200DB0757 /* Meditation */ = {
+			isa = PBXGroup;
+			children = (
+				18AA00352418B6EB00AB017C /* Meditation.entitlements */,
+				1874E721240D0D5700BB9387 /* NetworkReachable */,
+				18AD038323D5833900DB0757 /* FontFamily */,
+				18AD038223D5831500DB0757 /* SupprotingClasses */,
+				18AD037C23D57C9B00DB0757 /* Model */,
+				18AD038023D5826800DB0757 /* Controller's */,
+				18AD038123D5828200DB0757 /* View's */,
+				18AD035523D57B9800DB0757 /* Assets.xcassets */,
+				1874E728240D305700BB9387 /* credentials.plist */,
+				18AD035A23D57B9800DB0757 /* Info.plist */,
+				18AD035223D57B9200DB0757 /* Meditation.xcdatamodeld */,
+			);
+			path = Meditation;
+			sourceTree = "<group>";
+		};
+		18AD036223D57B9800DB0757 /* MeditationTests */ = {
+			isa = PBXGroup;
+			children = (
+				18AD036323D57B9800DB0757 /* MeditationTests.swift */,
+				18AD036523D57B9800DB0757 /* Info.plist */,
+			);
+			path = MeditationTests;
+			sourceTree = "<group>";
+		};
+		18AD036D23D57B9800DB0757 /* MeditationUITests */ = {
+			isa = PBXGroup;
+			children = (
+				18AD036E23D57B9800DB0757 /* MeditationUITests.swift */,
+				18AD037023D57B9800DB0757 /* Info.plist */,
+			);
+			path = MeditationUITests;
+			sourceTree = "<group>";
+		};
+		18AD037C23D57C9B00DB0757 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1865D1252410D29F00586C8D /* modelclass.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18AD038023D5826800DB0757 /* Controller's */ = {
+			isa = PBXGroup;
+			children = (
+				18AD034B23D57B9200DB0757 /* AppDelegate.swift */,
+				18AD038C23D5AF9500DB0757 /* RegisterViewController.swift */,
+				1888B53123D9ACF300130AA5 /* SignInViewController.swift */,
+				18AD038E23D5D68000DB0757 /* SelectVoiceViewController.swift */,
+				181AC76723D6CC7900E5ABFF /* SelectCategoriesViewController.swift */,
+				1846C2DE23D6E468003BA6C3 /* TabBarController.swift */,
+				1846C2E023D7059C003BA6C3 /* LibraryViewController.swift */,
+				181FF82E23D8791F0089461B /* SessionViewController.swift */,
+				1846C2E223D7241A003BA6C3 /* SoundsViewController.swift */,
+				1846C2E423D72436003BA6C3 /* RecordViewController.swift */,
+				1846C2E623D72446003BA6C3 /* AccountViewController.swift */,
+				181FF82A23D839500089461B /* SettingsViewController.swift */,
+				181FF82C23D85CE50089461B /* MusicPlayerViewController.swift */,
+				181FF83023D889060089461B /* MyAffirmationsViewController.swift */,
+				1888B52923D96A4B00130AA5 /* NotificationViewController.swift */,
+				1888B52B23D979BB00130AA5 /* SupportViewController.swift */,
+				1888B52D23D97BA900130AA5 /* HelpSupportViewController.swift */,
+				1888B52F23D9827000130AA5 /* AccountSettingViewController.swift */,
+				18462F0723D9DE3F005D1E17 /* MyFavouriteViewController.swift */,
+				18823B1523DB1D67009908F1 /* PrivacyPolicyViewController.swift */,
+			);
+			path = "Controller's";
+			sourceTree = "<group>";
+		};
+		18AD038123D5828200DB0757 /* View's */ = {
+			isa = PBXGroup;
+			children = (
+				18AD034F23D57B9200DB0757 /* Main.storyboard */,
+				18AD035723D57B9800DB0757 /* LaunchScreen.storyboard */,
+			);
+			path = "View's";
+			sourceTree = "<group>";
+		};
+		18AD038223D5831500DB0757 /* SupprotingClasses */ = {
+			isa = PBXGroup;
+			children = (
+				18AD038623D58AA500DB0757 /* Designable.swift */,
+				18AD038823D58AB200DB0757 /* ExtensionClass.swift */,
+				1874E724240D0E1300BB9387 /* Singleton.swift */,
+				18AD038A23D58AC100DB0757 /* LBZSpinner.swift */,
+				1874E726240D0E3400BB9387 /* constant.swift */,
+				18AD039023D5D88700DB0757 /* Common.swift */,
+				1874E722240D0D8900BB9387 /* NetworkService.swift */,
+				1827F72B240E7F3B006832A0 /* MusicPlayer.swift */,
+			);
+			path = SupprotingClasses;
+			sourceTree = "<group>";
+		};
+		18AD038323D5833900DB0757 /* FontFamily */ = {
+			isa = PBXGroup;
+			children = (
+				181FF82523D80E590089461B /* Comfortaa-Bold.ttf */,
+				181FF82423D80E590089461B /* Comfortaa-Light.ttf */,
+				181FF82623D80E590089461B /* Comfortaa-Regular.ttf */,
+			);
+			path = FontFamily;
+			sourceTree = "<group>";
+		};
+		20B0C5DB42515D729509A57A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80B5070893B58EB2482013CD /* Pods-Meditation.debug.xcconfig */,
+				9934D0BC64302836FFDB8244 /* Pods-Meditation.release.xcconfig */,
+				08BFFD38BC24080339A759B5 /* Pods-Meditation-MeditationUITests.debug.xcconfig */,
+				D61F833D16E3E2AF2530424D /* Pods-Meditation-MeditationUITests.release.xcconfig */,
+				1A0FE023B4011E74DFA8E412 /* Pods-MeditationTests.debug.xcconfig */,
+				5B4499A50130363135D946F2 /* Pods-MeditationTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18AD034723D57B9200DB0757 /* Meditation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18AD037323D57B9800DB0757 /* Build configuration list for PBXNativeTarget "Meditation" */;
+			buildPhases = (
+				F5184BCE9E794F6FA2163360 /* [CP] Check Pods Manifest.lock */,
+				18AD034423D57B9200DB0757 /* Sources */,
+				18AD034523D57B9200DB0757 /* Frameworks */,
+				18AD034623D57B9200DB0757 /* Resources */,
+				ADFBF662CED41D190433AF0D /* [CP] Embed Pods Frameworks */,
+				90FFFEEEF75F4187B789B606 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Meditation;
+			productName = Meditation;
+			productReference = 18AD034823D57B9200DB0757 /* Meditation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		18AD035E23D57B9800DB0757 /* MeditationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18AD037623D57B9800DB0757 /* Build configuration list for PBXNativeTarget "MeditationTests" */;
+			buildPhases = (
+				BCFEE08BE8AC00495EA6EE6B /* [CP] Check Pods Manifest.lock */,
+				18AD035B23D57B9800DB0757 /* Sources */,
+				18AD035C23D57B9800DB0757 /* Frameworks */,
+				18AD035D23D57B9800DB0757 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18AD036123D57B9800DB0757 /* PBXTargetDependency */,
+			);
+			name = MeditationTests;
+			productName = MeditationTests;
+			productReference = 18AD035F23D57B9800DB0757 /* MeditationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		18AD036923D57B9800DB0757 /* MeditationUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18AD037923D57B9800DB0757 /* Build configuration list for PBXNativeTarget "MeditationUITests" */;
+			buildPhases = (
+				A97CB3E29CE25A10575D627D /* [CP] Check Pods Manifest.lock */,
+				18AD036623D57B9800DB0757 /* Sources */,
+				18AD036723D57B9800DB0757 /* Frameworks */,
+				18AD036823D57B9800DB0757 /* Resources */,
+				0B1539D859A7AB051F205C13 /* [CP] Embed Pods Frameworks */,
+				50E4967DE293434B481529CE /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18AD036C23D57B9800DB0757 /* PBXTargetDependency */,
+			);
+			name = MeditationUITests;
+			productName = MeditationUITests;
+			productReference = 18AD036A23D57B9800DB0757 /* MeditationUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18AD034023D57B9200DB0757 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = Apple;
+				TargetAttributes = {
+					18AD034723D57B9200DB0757 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					18AD035E23D57B9800DB0757 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 18AD034723D57B9200DB0757;
+					};
+					18AD036923D57B9800DB0757 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 18AD034723D57B9200DB0757;
+					};
+				};
+			};
+			buildConfigurationList = 18AD034323D57B9200DB0757 /* Build configuration list for PBXProject "Meditation" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 18AD033F23D57B9200DB0757;
+			productRefGroup = 18AD034923D57B9200DB0757 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18AD034723D57B9200DB0757 /* Meditation */,
+				18AD035E23D57B9800DB0757 /* MeditationTests */,
+				18AD036923D57B9800DB0757 /* MeditationUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18AD034623D57B9200DB0757 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181FF82723D80E590089461B /* Comfortaa-Light.ttf in Resources */,
+				18AD035923D57B9800DB0757 /* LaunchScreen.storyboard in Resources */,
+				181FF82823D80E590089461B /* Comfortaa-Bold.ttf in Resources */,
+				18AD035623D57B9800DB0757 /* Assets.xcassets in Resources */,
+				181FF82923D80E590089461B /* Comfortaa-Regular.ttf in Resources */,
+				1874E729240D305700BB9387 /* credentials.plist in Resources */,
+				18AD035123D57B9200DB0757 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AD035D23D57B9800DB0757 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AD036823D57B9800DB0757 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0B1539D859A7AB051F205C13 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		50E4967DE293434B481529CE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		90FFFEEEF75F4187B789B606 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Meditation/Pods-Meditation-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Meditation/Pods-Meditation-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Meditation/Pods-Meditation-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A97CB3E29CE25A10575D627D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Meditation-MeditationUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ADFBF662CED41D190433AF0D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Meditation/Pods-Meditation-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Meditation/Pods-Meditation-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Meditation/Pods-Meditation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCFEE08BE8AC00495EA6EE6B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MeditationTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5184BCE9E794F6FA2163360 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Meditation-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18AD034423D57B9200DB0757 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18462F0823D9DE3F005D1E17 /* MyFavouriteViewController.swift in Sources */,
+				18AD039123D5D88700DB0757 /* Common.swift in Sources */,
+				1827F72C240E7F3B006832A0 /* MusicPlayer.swift in Sources */,
+				18823B1623DB1D67009908F1 /* PrivacyPolicyViewController.swift in Sources */,
+				181FF83123D889060089461B /* MyAffirmationsViewController.swift in Sources */,
+				1846C2E123D7059C003BA6C3 /* LibraryViewController.swift in Sources */,
+				1888B52E23D97BA900130AA5 /* HelpSupportViewController.swift in Sources */,
+				1846C2E723D72446003BA6C3 /* AccountViewController.swift in Sources */,
+				18AD038923D58AB200DB0757 /* ExtensionClass.swift in Sources */,
+				18AD038F23D5D68000DB0757 /* SelectVoiceViewController.swift in Sources */,
+				1888B53023D9827000130AA5 /* AccountSettingViewController.swift in Sources */,
+				1874E725240D0E1300BB9387 /* Singleton.swift in Sources */,
+				181FF82F23D8791F0089461B /* SessionViewController.swift in Sources */,
+				1846C2DF23D6E468003BA6C3 /* TabBarController.swift in Sources */,
+				18AD038723D58AA500DB0757 /* Designable.swift in Sources */,
+				181FF82D23D85CE50089461B /* MusicPlayerViewController.swift in Sources */,
+				1874E727240D0E3400BB9387 /* constant.swift in Sources */,
+				18AD035423D57B9200DB0757 /* Meditation.xcdatamodeld in Sources */,
+				181FF82B23D839500089461B /* SettingsViewController.swift in Sources */,
+				1888B52A23D96A4B00130AA5 /* NotificationViewController.swift in Sources */,
+				18AD038D23D5AF9500DB0757 /* RegisterViewController.swift in Sources */,
+				1846C2E323D7241A003BA6C3 /* SoundsViewController.swift in Sources */,
+				181AC76823D6CC7900E5ABFF /* SelectCategoriesViewController.swift in Sources */,
+				1846C2E523D72436003BA6C3 /* RecordViewController.swift in Sources */,
+				18AD038B23D58AC100DB0757 /* LBZSpinner.swift in Sources */,
+				1888B52C23D979BB00130AA5 /* SupportViewController.swift in Sources */,
+				1865D1262410D29F00586C8D /* modelclass.swift in Sources */,
+				1888B53223D9ACF300130AA5 /* SignInViewController.swift in Sources */,
+				1874E723240D0D8A00BB9387 /* NetworkService.swift in Sources */,
+				18AD034C23D57B9200DB0757 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AD035B23D57B9800DB0757 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18AD036423D57B9800DB0757 /* MeditationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18AD036623D57B9800DB0757 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18AD036F23D57B9800DB0757 /* MeditationUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18AD036123D57B9800DB0757 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18AD034723D57B9200DB0757 /* Meditation */;
+			targetProxy = 18AD036023D57B9800DB0757 /* PBXContainerItemProxy */;
+		};
+		18AD036C23D57B9800DB0757 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18AD034723D57B9200DB0757 /* Meditation */;
+			targetProxy = 18AD036B23D57B9800DB0757 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		18AD034F23D57B9200DB0757 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18AD035023D57B9200DB0757 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		18AD035723D57B9800DB0757 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18AD035823D57B9800DB0757 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		18AD037123D57B9800DB0757 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		18AD037223D57B9800DB0757 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(PRODUCT_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18AD037423D57B9800DB0757 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80B5070893B58EB2482013CD /* Pods-Meditation.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Meditation/Meditation.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 48V398YC36;
+				INFOPLIST_FILE = Meditation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.imarkinfotech.Kitoplastic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		18AD037523D57B9800DB0757 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9934D0BC64302836FFDB8244 /* Pods-Meditation.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Meditation/Meditation.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 48V398YC36;
+				INFOPLIST_FILE = Meditation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.imarkinfotech.Kitoplastic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		18AD037723D57B9800DB0757 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A0FE023B4011E74DFA8E412 /* Pods-MeditationTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 854539W674;
+				INFOPLIST_FILE = MeditationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.MeditationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Meditation.app/Meditation";
+			};
+			name = Debug;
+		};
+		18AD037823D57B9800DB0757 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B4499A50130363135D946F2 /* Pods-MeditationTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 854539W674;
+				INFOPLIST_FILE = MeditationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.MeditationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Meditation.app/Meditation";
+			};
+			name = Release;
+		};
+		18AD037A23D57B9800DB0757 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08BFFD38BC24080339A759B5 /* Pods-Meditation-MeditationUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 854539W674;
+				INFOPLIST_FILE = MeditationUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.MeditationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Meditation;
+			};
+			name = Debug;
+		};
+		18AD037B23D57B9800DB0757 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D61F833D16E3E2AF2530424D /* Pods-Meditation-MeditationUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 854539W674;
+				INFOPLIST_FILE = MeditationUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.MeditationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Meditation;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18AD034323D57B9200DB0757 /* Build configuration list for PBXProject "Meditation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AD037123D57B9800DB0757 /* Debug */,
+				18AD037223D57B9800DB0757 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18AD037323D57B9800DB0757 /* Build configuration list for PBXNativeTarget "Meditation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AD037423D57B9800DB0757 /* Debug */,
+				18AD037523D57B9800DB0757 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18AD037623D57B9800DB0757 /* Build configuration list for PBXNativeTarget "MeditationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AD037723D57B9800DB0757 /* Debug */,
+				18AD037823D57B9800DB0757 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18AD037923D57B9800DB0757 /* Build configuration list for PBXNativeTarget "MeditationUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18AD037A23D57B9800DB0757 /* Debug */,
+				18AD037B23D57B9800DB0757 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		18AD035223D57B9200DB0757 /* Meditation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				18AD035323D57B9200DB0757 /* Meditation.xcdatamodel */,
+			);
+			currentVersion = 18AD035323D57B9200DB0757 /* Meditation.xcdatamodel */;
+			path = Meditation.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 18AD034023D57B9200DB0757 /* Project object */;
+}
