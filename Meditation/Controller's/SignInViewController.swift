@@ -117,6 +117,7 @@ class SignInViewController: UIViewController,GIDSignInDelegate {
                   if let data = dic.value(forKey: "data") as? NSDictionary{
                       let userID = data.value(forKey: "user_id") as! NSString
                       UserDefaults.standard.set(userID, forKey: "UserID")
+                    UserDefaults.standard.set("", forKey: "oldpassword")
                   }
                   self.performPushSeguefromController(identifier: "TabBarController")
               }
@@ -197,7 +198,7 @@ extension SignInViewController{
                       let userID = data.value(forKey: "user_id") as! NSString
                       UserDefaults.standard.set(userID, forKey: "UserID")
                   }
-                  self.performPushSeguefromController(identifier: "TabBarController")
+                  self.performPushSeguefromController(identifier: "SelectVoiceViewController")
               }
               else{
                   self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)

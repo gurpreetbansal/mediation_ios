@@ -74,7 +74,7 @@ class SelectVoiceViewController: UIViewController {
             self.view.endEditing(true)
         }
     @IBAction func backBtnTap(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+      //  self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func switchTap(_ sender: UISwitch) {

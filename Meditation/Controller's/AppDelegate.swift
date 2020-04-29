@@ -11,6 +11,8 @@ import CoreData
 import IQKeyboardManagerSwift
 import GoogleSignIn
 import FBSDKCoreKit
+import AVFoundation
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        // Get the singleton instance.
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            // Set the audio session category, mode, and options.
+            try audioSession.setCategory(.playback, mode: .moviePlayback, options: [])
+        } catch {
+            print("Failed to set audio session category.")
+        }
         
         //For iqkeyboard
         IQKeyboardManager.shared.enable = true
@@ -37,6 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        // ==============Initialize facebook sign-in==================
                ApplicationDelegate.shared.application(application,
                                                       didFinishLaunchingWithOptions: launchOptions)
+        
+        // ==============Firebase configure==================
+        
+        FirebaseApp.configure()
+        
         return true
     }
     

@@ -16,5 +16,6 @@ class SingletonClass: NSObject {
         return singletonObject
     }()
      var myAudioPlayer:AVPlayer?
+    var meterTimer:Timer?
 }
 

@@ -21,8 +21,19 @@ public enum methodName{
         case getVoiceList
         case setVoice
         case getCategoryList
-         case getProfile
+        case getProfile
+        case support
         case editProfile
+        case SetContent
+        case GetHomeData
+        case TokenGenerate
+        case Payment
+        case MyFavouriteSongs
+        case MySongsList
+        case PostMySongList
+        case MyAffirmation
+        case Sounds
+        case ContactUs
         var caseValue : String{
             switch self{
             case .userSignUP:                return "auth/register"
@@ -31,9 +42,21 @@ public enum methodName{
             case .LogOut:                    return "auth/logout"
             case .getVoiceList:              return "collections/getVoice"
             case .setVoice:                  return "collections/setVoice"
-            case .getCategoryList:           return "collections/getContentsInfo"
-            case .getProfile:               return "auth/getProfile"
-            case .editProfile:              return "auth/editProfile"
+//          case .getCategoryList:           return "collections/getContentsInfo"
+            case .getCategoryList:           return "collections/getCategoryes"
+            case .MySongsList:               return "collections/mySongsList"
+            case .PostMySongList:            return "collections/postMySongs"
+            case .MyAffirmation:             return "collections/affirmationCategoies"
+            case .Sounds:                    return "collections/music"
+            case .support:                   return "collections/support"
+            case .getProfile:                return "auth/getProfile"
+            case .editProfile:               return "auth/editProfile"
+            case .SetContent:                return "collections/collectCategory"
+            case .GetHomeData:               return "collections/randomCategory"
+            case .MyFavouriteSongs:          return "collections/myfavoritesongs"
+            case .ContactUs:                 return "auth/contactUs"
+            case .Payment:                   return "payment/brainTreePayment"
+            case .TokenGenerate:             return "payment/brainTreegenerateToken"
              }
         }
     }

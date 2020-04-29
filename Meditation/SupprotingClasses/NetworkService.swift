@@ -33,6 +33,40 @@ class networkServices{
         }
         }
     
+    
+    //MARK:- Upload Audio
+    func uploadAudio(methodName: String,audioData:Data?,name:String ,appendParam:[String:String],completion: @escaping (Any)->Void){
+          let url = URL(string:BaseURL + methodName)
+          let headers = [ "userId" : "\(UserDefaults.standard.value(forKey: "USERID") ?? "")"]
+          let manager = Alamofire.SessionManager.default
+          manager.session.configuration.timeoutIntervalForRequest = 100000
+          Alamofire.upload(multipartFormData: { multipartFormData in
+               //import image to request
+              multipartFormData.append(audioData!, withName: name, fileName: "songs.m4a", mimeType: "songs/m4a")
+              
+              for (key, value) in appendParam {
+                  multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+              }
+
+          },               to: url!,headers:(headers))
+          { (result) in
+              switch(result) {
+                  
+              case .success(let upload, _, _):
+                  
+                  upload.uploadProgress(closure: { (progress) in
+                      print("Upload Progress: \(progress.fractionCompleted)")
+                  })
+                  DispatchQueue.main.async {
+                      upload.responseJSON { response in
+                          completion(response.result.value)
+                      }
+                  }
+              case .failure(let encodingError):
+                  print(encodingError)
+              }
+          }
+      }
    
     //MARK:- Post Api
     func getPost(action:String,param: [String:Any],onSuccess: @escaping(DataResponse<Any>) -> Void, onFailure: @escaping(Error) -> Void){

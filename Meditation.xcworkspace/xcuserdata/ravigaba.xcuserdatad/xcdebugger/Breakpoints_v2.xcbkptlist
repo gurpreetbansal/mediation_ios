@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "AB944B75-DB11-4BE5-8801-D06BBB9EE262"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "63EE0AE9-14E3-4186-9BDE-702EA6B18029"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Meditation/Controller&apos;s/SelectCategoriesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "postSetContent()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "63EE0AE9-14E3-4186-9BDE-702EA6B18029 - bb5f7e4d42061d54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Meditation.SelectCategoriesViewController.postSetContent() -&gt; ()"
+                  moduleName = "Meditation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ravigaba/Documents/manojOffice/mediation_ios/Meditation/Controller&apos;s/SelectCategoriesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "964">
+               </Location>
+               <Location
+                  uuid = "63EE0AE9-14E3-4186-9BDE-702EA6B18029 - bde3929f546948a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Any) -&gt; () in Meditation.SelectCategoriesViewController.postSetContent() -&gt; ()"
+                  moduleName = "Meditation"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ravigaba/Documents/manojOffice/mediation_ios/Meditation/Controller&apos;s/SelectCategoriesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "126">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -19,8 +19,8 @@ class SelectCategoriesCell : UITableViewCell{
 }
 
 class SelectCategoriesViewController: UIViewController {
-
-     @IBOutlet var upperview: UIView!
+    
+    @IBOutlet var upperview: UIView!
     
     var isSelectedcell  = false
     var selectCell = -1
@@ -33,8 +33,8 @@ class SelectCategoriesViewController: UIViewController {
         super.viewDidLoad()
         
         getCategoryList()
-         self.upperview.initGradientView(view: self.upperview, colour1: darkSkyBlue_Colour, colour2: Green_Colour)
-         // Do any additional setup after loading the view.
+        self.upperview.initGradientView(view: self.upperview, colour1: darkSkyBlue_Colour, colour2: Green_Colour)
+        // Do any additional setup after loading the view.
     }
     
     
@@ -47,7 +47,8 @@ class SelectCategoriesViewController: UIViewController {
             self.ShowAlertView(title: AppName, message: "Please Select category first", viewController: self)
         }
         else{
-            performPushSeguefromController(identifier: "TabBarController")
+            postSetContent()
+            
         }
         
     }
@@ -61,26 +62,22 @@ extension SelectCategoriesViewController : UITableViewDelegate,UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectCategoriesCell", for: indexPath) as! SelectCategoriesCell
-         if appendZeroArray[indexPath.row] == 1{
-                  cell.BackView.layer.borderWidth = 3
-                  cell.BackView.layer.borderColor = #colorLiteral(red: 0.3268497586, green: 0.7067340612, blue: 0.8769108653, alpha: 1)
-              }
-              else{
-                  cell.BackView.layer.borderWidth = 0
-              }
+        if appendZeroArray[indexPath.row] == 1{
+            cell.BackView.layer.borderWidth = 3
+            cell.BackView.layer.borderColor = #colorLiteral(red: 0.3268497586, green: 0.7067340612, blue: 0.8769108653, alpha: 1)
+        }
+        else{
+            cell.BackView.layer.borderWidth = 0
+        }
         cell.CategoryName.text = categoryData[indexPath.row].Category_name
         if let imageString = categoryData[indexPath.row].category_Image as? String{
             if imageString != ""{
-               let profileImageUrl = URL(string: imageString)
-               if let profile = try? Data(contentsOf: profileImageUrl!)
-               {
-//                   let image: UIImage = UIImage(data: profile)!
-//                   cell.CategoryImage.image = image
-                cell.CategoryImage.sd_setImage(with: profileImageUrl, placeholderImage: #imageLiteral(resourceName: "Professional"))
-                 }
+                if URL(string: (imageString) ) != nil {
+                    cell.CategoryImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
+                }
             }
         }
-       return cell
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -88,7 +85,7 @@ extension SelectCategoriesViewController : UITableViewDelegate,UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         
+        
         selectCell = indexPath.row
         if appendZeroArray[indexPath.row] == 0{
             appendZeroArray[indexPath.row] = 1
@@ -103,20 +100,23 @@ extension SelectCategoriesViewController : UITableViewDelegate,UITableViewDataSo
             print("my choose Category array is \(self.chooseCategoryId)")
         }
         isSelectedcell = true
-       // tableView.reloadData()
-           tableView.reloadRows(at: [indexPath], with: .fade)
-     }
- }
+        // tableView.reloadData()
+        UIView.performWithoutAnimation {
+               tableView.reloadRows(at: [indexPath], with: .none)
+        }
+        
+    }
+}
 //MARK:- API Integration
 extension SelectCategoriesViewController{
     
-   //MARK:- Get Category list
-       func getCategoryList(){
-           self.showProgress()
-         let userID = UserDefaults.standard.value(forKey: "UserID")
-                let parameter : [String : Any] = ["user_id": userID as Any,
-                                                  "type_id": "2"]
-                print(parameter)
+    //MARK:- Get Category list
+    func getCategoryList(){
+        self.showProgress()
+        let userID = UserDefaults.standard.value(forKey: "UserID")
+        let parameter : [String : Any] = ["user_id": userID as Any,
+                                          "type_id": "2"]
+        print(parameter)
         let methodname = methodName.UserCase.getCategoryList.caseValue
         let baseURL = BaseURL + methodname
         Alamofire.request(baseURL, method: .post, parameters: parameter, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
@@ -129,7 +129,7 @@ extension SelectCategoriesViewController{
                     if dict.value(forKey: "success") as! Bool == true{
                         let data = dict.value(forKey: "data") as! NSArray
                         for i in 0..<data.count{
-                            self.categoryData.append(categoryList(category_id: (data[i] as AnyObject).value(forKey: "id")as! Int , Category_name: (data[i] as AnyObject).value(forKey: "name")as! String, category_Image: (data[i] as AnyObject).value(forKey: "file_image") as! String))
+                            self.categoryData.append(categoryList(category_id: (data[i] as AnyObject).value(forKey: "id")as! Int , Category_name: (data[i] as AnyObject).value(forKey: "name")as! String, category_Image: (data[i] as AnyObject).value(forKey: "image") as! String))
                             self.appendZeroArray.append(0)
                         }
                         print("My category data is :- \(self.categoryData)")
@@ -137,11 +137,35 @@ extension SelectCategoriesViewController{
                     }
                     
                 }
-               
+                
             }
             else{
                 print("failure")
             }
         }
-       }
- }
+    }
+    
+    
+    
+    //MARK:- Post Set Content API
+    
+    func postSetContent(){
+        self.showProgress()
+        let userID = UserDefaults.standard.value(forKey: "UserID")
+        let parameter : [String : Any] = ["category_id":chooseCategoryId,
+                                          "user_id": userID as Any]
+        print(parameter)
+        
+        networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.SetContent.caseValue, parameter: parameter) { (response) in
+            print(response)
+            self.hideProgress()
+            let dic = response as! NSDictionary
+            if dic.value(forKey: "success") as!Bool == true{
+                self.performPushSeguefromController(identifier: "TabBarController")
+            }
+            else{
+                self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+            }
+        }
+    }
+}

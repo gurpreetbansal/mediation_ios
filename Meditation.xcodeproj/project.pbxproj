@@ -50,6 +50,11 @@
 		9BD15CBE3CFF9EB9C1DE97BE /* Pods_Meditation_MeditationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */; };
 		AB80B3207F3E8AE6E12BB843 /* Pods_Meditation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C229952E84815CFABE04B78 /* Pods_Meditation.framework */; };
 		CAFACD02BFAE75CFFCA702B2 /* Pods_MeditationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */; };
+		D83817452446DDD000AB75CC /* 1586515523.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D83817442446DDD000AB75CC /* 1586515523.mp3 */; };
+		D86FF61B2440460B00E2883C /* MTCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86FF61A2440460B00E2883C /* MTCircularSlider.swift */; };
+		D87C13FB24499BA100A75C2F /* guitar-songs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D87C13FA24499BA100A75C2F /* guitar-songs.mp3 */; };
+		D8C5E71E244495BE00A815BF /* dog.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8C5E71D244495BE00A815BF /* dog.wav */; };
+		D8CC3EC02452CF2500A26274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CC3EBF2452CF2500A26274 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +130,11 @@
 		9934D0BC64302836FFDB8244 /* Pods-Meditation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation.release.xcconfig"; path = "Target Support Files/Pods-Meditation/Pods-Meditation.release.xcconfig"; sourceTree = "<group>"; };
 		C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeditationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D61F833D16E3E2AF2530424D /* Pods-Meditation-MeditationUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation-MeditationUITests.release.xcconfig"; path = "Target Support Files/Pods-Meditation-MeditationUITests/Pods-Meditation-MeditationUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D83817442446DDD000AB75CC /* 1586515523.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1586515523.mp3; sourceTree = "<group>"; };
+		D86FF61A2440460B00E2883C /* MTCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCircularSlider.swift; sourceTree = "<group>"; };
+		D87C13FA24499BA100A75C2F /* guitar-songs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "guitar-songs.mp3"; sourceTree = "<group>"; };
+		D8C5E71D244495BE00A815BF /* dog.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dog.wav; sourceTree = "<group>"; };
+		D8CC3EBF2452CF2500A26274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meditation_MeditationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -210,6 +220,7 @@
 				18AD035523D57B9800DB0757 /* Assets.xcassets */,
 				1874E728240D305700BB9387 /* credentials.plist */,
 				18AD035A23D57B9800DB0757 /* Info.plist */,
+				D8CC3EBF2452CF2500A26274 /* GoogleService-Info.plist */,
 				18AD035223D57B9200DB0757 /* Meditation.xcdatamodeld */,
 			);
 			path = Meditation;
@@ -288,6 +299,10 @@
 				18AD039023D5D88700DB0757 /* Common.swift */,
 				1874E722240D0D8900BB9387 /* NetworkService.swift */,
 				1827F72B240E7F3B006832A0 /* MusicPlayer.swift */,
+				D86FF61A2440460B00E2883C /* MTCircularSlider.swift */,
+				D83817442446DDD000AB75CC /* 1586515523.mp3 */,
+				D87C13FA24499BA100A75C2F /* guitar-songs.mp3 */,
+				D8C5E71D244495BE00A815BF /* dog.wav */,
 			);
 			path = SupprotingClasses;
 			sourceTree = "<group>";
@@ -429,8 +444,12 @@
 				181FF82723D80E590089461B /* Comfortaa-Light.ttf in Resources */,
 				18AD035923D57B9800DB0757 /* LaunchScreen.storyboard in Resources */,
 				181FF82823D80E590089461B /* Comfortaa-Bold.ttf in Resources */,
+				D87C13FB24499BA100A75C2F /* guitar-songs.mp3 in Resources */,
+				D83817452446DDD000AB75CC /* 1586515523.mp3 in Resources */,
 				18AD035623D57B9800DB0757 /* Assets.xcassets in Resources */,
 				181FF82923D80E590089461B /* Comfortaa-Regular.ttf in Resources */,
+				D8C5E71E244495BE00A815BF /* dog.wav in Resources */,
+				D8CC3EC02452CF2500A26274 /* GoogleService-Info.plist in Resources */,
 				1874E729240D305700BB9387 /* credentials.plist in Resources */,
 				18AD035123D57B9200DB0757 /* Main.storyboard in Resources */,
 			);
@@ -614,6 +633,7 @@
 				18AD035423D57B9200DB0757 /* Meditation.xcdatamodeld in Sources */,
 				181FF82B23D839500089461B /* SettingsViewController.swift in Sources */,
 				1888B52A23D96A4B00130AA5 /* NotificationViewController.swift in Sources */,
+				D86FF61B2440460B00E2883C /* MTCircularSlider.swift in Sources */,
 				18AD038D23D5AF9500DB0757 /* RegisterViewController.swift in Sources */,
 				1846C2E323D7241A003BA6C3 /* SoundsViewController.swift in Sources */,
 				181AC76823D6CC7900E5ABFF /* SelectCategoriesViewController.swift in Sources */,
@@ -802,19 +822,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Meditation/Meditation.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 48V398YC36;
+				DEVELOPMENT_TEAM = 5H47G6338B;
 				INFOPLIST_FILE = Meditation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.imarkinfotech.Kitoplastic;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dev.meditation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = meditation;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -826,19 +846,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Meditation/Meditation.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 48V398YC36;
+				DEVELOPMENT_TEAM = 5H47G6338B;
 				INFOPLIST_FILE = Meditation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.imarkinfotech.Kitoplastic;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dev.meditation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = meditation;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

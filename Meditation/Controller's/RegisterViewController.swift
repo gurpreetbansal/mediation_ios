@@ -81,6 +81,7 @@ extension RegisterViewController{
     func RegisterData(){
          self.showProgress()
             let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+        UserDefaults.standard.set(PasswordTF.text!, forKey: "oldpassword")
         let parameter : [String : Any] = ["first_name":firstNameTF.text!,
                              "last_name":"",
                              "email":EmailTF.text!,
@@ -107,8 +108,6 @@ extension RegisterViewController{
                  }
                 else{
                     self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
-
-    
 }
 }
 }

@@ -13,12 +13,19 @@ target 'Meditation' do
    pod 'UIActivityIndicator-for-SDWebImage'
    pod 'Alamofire'
    
+   pod 'Firebase/Auth'
+   pod 'Firebase/Firestore'
+   pod 'Firebase/Messaging'
+   
    pod 'GoogleSignIn'
    
    pod 'FBSDKLoginKit'
    pod 'FacebookLogin'
-   
-   
+  
+   pod 'BraintreeDropIn'
+  
+   pod 'SwiftySound'
+   pod 'HGCircularSlider', '~> 2.0.0'
 
   target 'MeditationTests' do
     inherit! :search_paths

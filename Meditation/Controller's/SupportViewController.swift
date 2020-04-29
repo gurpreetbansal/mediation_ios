@@ -8,10 +8,11 @@
 
 import UIKit
 
-class SupportViewController: UIViewController {
+class SupportViewController: UIViewController,UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         // Do any additional setup after loading the view.
     }

@@ -60,10 +60,18 @@ extension SettingsViewController : UITableViewDataSource,UITableViewDelegate{
           performPushSeguefromController(identifier: "NotificationViewController")
         }
         else if indexPath.row == 1{
-            performPushSeguefromController(identifier: "SupportViewController")
+            let Help = self.storyboard?.instantiateViewController(withIdentifier: "HelpSupportViewController")as! HelpSupportViewController
+            Help.iscomeFrom = "Support"
+            self.navigationController?.pushViewController(Help, animated: true)
+            
+           
         }
         else if indexPath.row == 2{
-            performPushSeguefromController(identifier: "HelpSupportViewController")
+            let Help = self.storyboard?.instantiateViewController(withIdentifier: "HelpSupportViewController")as! HelpSupportViewController
+            Help.iscomeFrom = "Help"
+            self.navigationController?.pushViewController(Help, animated: true)
+            
+           
         }
         else if indexPath.row == 3{
             performPushSeguefromController(identifier: "AccountSettingViewController")
