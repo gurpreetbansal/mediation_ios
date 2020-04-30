@@ -32,6 +32,8 @@ class MusicPlayerViewController: UIViewController, AVAudioPlayerDelegate {
         return formatter
     }()
     
+    
+    
     @IBOutlet weak var playPauseImageView: UIImageView!
     @IBOutlet weak var playPausebtn: UIButton!
     @IBOutlet var upperView: UIView!

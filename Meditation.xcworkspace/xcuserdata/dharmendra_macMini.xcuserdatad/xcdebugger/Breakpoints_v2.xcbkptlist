@@ -288,8 +288,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"
             endingLineNumber = "121"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "sendRequestPaymentToServer(nonce:amount:type:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -304,8 +304,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
             endingLineNumber = "137"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "sendRequestPaymentToServer(nonce:amount:type:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "993C842F-B69A-4DF0-9F18-4E716746F25F - 808854531d05fa32"
@@ -352,8 +352,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "141"
             endingLineNumber = "141"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "sendRequestPaymentToServer(nonce:amount:type:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

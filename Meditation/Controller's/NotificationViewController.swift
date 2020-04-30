@@ -25,6 +25,7 @@ class NotificationViewController: UIViewController {
 
 }
 
+
 extension NotificationViewController : UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10

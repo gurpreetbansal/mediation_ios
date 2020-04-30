@@ -428,9 +428,6 @@ extension LibraryViewController : UICollectionViewDelegate ,UICollectionViewData
     }
     
 }
-
- 
-
 extension LibraryViewController {
     
     func GetHomeData(){

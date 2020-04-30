@@ -19,7 +19,6 @@ class SelectVoiceCell : UITableViewCell{
 }
 
 class SelectVoiceViewController: UIViewController {
-
     @IBOutlet var upperview: UIView!
     @IBOutlet var voiceTableView: UITableView!
     @IBOutlet var textTimePicker: UITextField!
