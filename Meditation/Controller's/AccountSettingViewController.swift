@@ -121,12 +121,12 @@ class AccountSettingViewController: UIViewController,UIImagePickerControllerDele
     }
     
     @IBAction func saveBtnTap(_ sender: UIButton) {
-        if ((passwordTF.text?.count)! <= 6){
-            ShowAlertView(title: AppName, message: "Password must be greater than six digits", viewController: self)
-        }
-        else{
+//        if ((passwordTF.text?.count)! <= 6){
+//            ShowAlertView(title: AppName, message: "Password must be greater than six digits", viewController: self)
+//        }
+//        else{
             uploadimage()  // Upload image Api call
-        }
+//        }
         
     }
     

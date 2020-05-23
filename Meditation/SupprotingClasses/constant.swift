@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 let googleAPiKey = "AIzaSyDZYWHdACwG4QM5BGXh5rJ5BTI3b_0FXOk"
-let BaseURL = "https://clientstagingdev.com/meditation/api/"
+let BaseURL = "https://meditation.customer-devreview.com/api/"
 
 public enum methodName{
     public enum UserCase{

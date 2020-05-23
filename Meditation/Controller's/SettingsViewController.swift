@@ -66,33 +66,33 @@ extension SettingsViewController : UITableViewDataSource,UITableViewDelegate{
             
            
         }
+//        else if indexPath.row == 2{
+//            let Help = self.storyboard?.instantiateViewController(withIdentifier: "HelpSupportViewController")as! HelpSupportViewController
+//            Help.iscomeFrom = "Help"
+//            self.navigationController?.pushViewController(Help, animated: true)
+//
+//
+//        }
         else if indexPath.row == 2{
-            let Help = self.storyboard?.instantiateViewController(withIdentifier: "HelpSupportViewController")as! HelpSupportViewController
-            Help.iscomeFrom = "Help"
-            self.navigationController?.pushViewController(Help, animated: true)
-            
-           
-        }
-        else if indexPath.row == 3{
             performPushSeguefromController(identifier: "AccountSettingViewController")
         }
-        else if indexPath.row == 4{
+        else if indexPath.row == 3{
             let gotoPrivacy = self.storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicyViewController") as! PrivacyPolicyViewController
             gotoPrivacy.privacyStatus = "Terms"
             self.navigationController?.pushViewController(gotoPrivacy, animated: true)
         }
-        else if indexPath.row == 5{
+        else if indexPath.row == 4{
             let gotoPrivacy = self.storyboard?.instantiateViewController(withIdentifier: "PrivacyPolicyViewController") as! PrivacyPolicyViewController
             gotoPrivacy.privacyStatus = "Privacy"
             self.navigationController?.pushViewController(gotoPrivacy, animated: true)
         }
-        else if indexPath.row == 6{
+        else if indexPath.row == 5{
             let gotoAccount = self.storyboard?.instantiateViewController(withIdentifier: "AccountViewController") as! AccountViewController
             gotoAccount.iscomeFrom = "Account"
             self.navigationController?.pushViewController(gotoAccount, animated: true)
             
         }
-        if indexPath.row == 7{
+        if indexPath.row == 6{
             self.LogoutView.isHidden = false
         }
     }

@@ -104,7 +104,7 @@
 		1888B52F23D9827000130AA5 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		1888B53123D9ACF300130AA5 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		18AA00352418B6EB00AB017C /* Meditation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meditation.entitlements; sourceTree = "<group>"; };
-		18AD034823D57B9200DB0757 /* Meditation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meditation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18AD034823D57B9200DB0757 /* Selfpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Selfpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AD034B23D57B9200DB0757 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18AD035023D57B9200DB0757 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18AD035323D57B9200DB0757 /* Meditation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Meditation.xcdatamodel; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		18AD034923D57B9200DB0757 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				18AD034823D57B9200DB0757 /* Meditation.app */,
+				18AD034823D57B9200DB0757 /* Selfpause.app */,
 				18AD035F23D57B9800DB0757 /* MeditationTests.xctest */,
 				18AD036A23D57B9800DB0757 /* MeditationUITests.xctest */,
 			);
@@ -350,7 +350,7 @@
 			);
 			name = Meditation;
 			productName = Meditation;
-			productReference = 18AD034823D57B9200DB0757 /* Meditation.app */;
+			productReference = 18AD034823D57B9200DB0757 /* Selfpause.app */;
 			productType = "com.apple.product-type.application";
 		};
 		18AD035E23D57B9800DB0757 /* MeditationTests */ = {
@@ -833,7 +833,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dev.meditation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Selfpause;
 				PROVISIONING_PROFILE_SPECIFIER = meditation;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -857,7 +857,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dev.meditation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Selfpause;
 				PROVISIONING_PROFILE_SPECIFIER = meditation;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

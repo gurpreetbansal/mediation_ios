@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let AppName = "Meditation"
+let AppName = "Selfpause"
 
 let SelectVoiceImage = [#imageLiteral(resourceName: "Dummy1"),#imageLiteral(resourceName: "Dummy2"),#imageLiteral(resourceName: "Dummy3")]
 let SelectvoiceName = ["Alice","Tiffany","Kevin"]
@@ -30,7 +30,7 @@ let natureImage = [#imageLiteral(resourceName: "drops"),#imageLiteral(resourceNa
 let soundScapesArray = [#imageLiteral(resourceName: "drops"),#imageLiteral(resourceName: "Stone"),#imageLiteral(resourceName: "Tree"),#imageLiteral(resourceName: "water")]
 let MusicArray = [#imageLiteral(resourceName: "flower"),#imageLiteral(resourceName: "boat"),#imageLiteral(resourceName: "pianoo"),#imageLiteral(resourceName: "Pen"),#imageLiteral(resourceName: "boat")]
 
-let SettingData = ["Notifications","Support","Help Center","Account","Terms & Conditions","Privacy Policy","Subscription","Logout"]
+let SettingData = ["Notifications","Support","Account","Terms & Conditions","Privacy Policy","Subscription","Logout"]
 
 let sessionArray = ["Session 1","Session 2","Session 3","Session 4","Session 5","Session 6"]
 
