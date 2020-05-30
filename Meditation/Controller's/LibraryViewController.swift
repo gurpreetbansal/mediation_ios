@@ -8,8 +8,8 @@
 
 import UIKit
 import SDWebImage
-import BraintreeDropIn
 import Braintree
+import BraintreeDropIn
 
 class MyInterestTableCell : UITableViewCell{
     @IBOutlet var CategoryImage: UIImageView!
@@ -32,7 +32,15 @@ class AllCategoryTableCell : UITableViewCell{
     @IBOutlet var categoryName: UILabel!
 }
 
-class LibraryViewController: UIViewController {
+class LibraryViewController: UIViewController, BTDropInViewControllerDelegate {
+    func drop(_ viewController: BTDropInViewController, didSucceedWithTokenization paymentMethodNonce: BTPaymentMethodNonce) {
+        
+    }
+    
+    func drop(inViewControllerDidCancel viewController: BTDropInViewController) {
+        
+    }
+    
 
     @IBOutlet var upperview: UIView!
     @IBOutlet var HomeTableView: UITableView!
@@ -41,23 +49,58 @@ class LibraryViewController: UIViewController {
     @IBOutlet weak var mainBannerImageView: UIImageView!
     @IBOutlet weak var mainBannerLabel: UILabel!
     
-    var toKinizationKey = ""
+    var toKinizationKey = privateKey
     var homeCategoryData = NSArray()
     var randomDict = NSDictionary()
     var stuffArr = NSArray()
     var natureArr = NSArray()
     var interestArr = NSArray()
     var sessionType = String()
-    
+ 
+    var clientToken = ""
     override func viewDidLoad() {
         super.viewDidLoad()
          initfunc()
         GetHomeData()  //API Call
         
-           // Do any additional setup after loading the view.
-       
+//           // Do any additional setup after loading the view.
+//       let clientTokenURL = URL(string: "https://braintree-sample-merchant.herokuapp.com/client_token")!
+//              var clientTokenRequest = URLRequest(url: clientTokenURL)
+//              clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
+//
+//              URLSession.shared.dataTask(with: clientTokenRequest) {
+//                  (data, response, error) -> Void in
+//                  // TODO: Handle errors
+//                self.clientToken = String(data: data!, encoding: String.Encoding.utf8)!
+//                  // Initialize `Braintree` once per checkout session
+//                   //self.braintree = Braintree(clientToken: self.clientToken)
+//
+//                  // As an example, you may wish to present our Drop-in UI at this point.
+//                  // Continue to the next section to learn more...
+//              }.resume()
+//
     }
-    
+//    func tappedMyPayButton() {
+//        // If you haven't already, create and retain a `Braintree` instance with the client token.
+//        // Typically, you only need to do this once per session.
+//        //braintree = Braintree(clientToken: CLIENT_TOKEN_FROM_SERVER)
+//
+//        // Create a BTDropInViewController
+//        let dropInViewController = Braintree.dropInViewController(with: self)
+//        // This is where you might want to customize your Drop-in. (See below.)
+//
+//        // The way you present your BTDropInViewController instance is up to you.
+//        // In this example, we wrap it in a new, modally presented navigation controller:
+//        dropInViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(LibraryViewController.userDidCancelPayment))
+//
+//        let navigationController = UINavigationController(rootViewController: dropInViewController)
+//        self.present(navigationController, animated: true, completion: nil)
+//    }
+
+    func userDidCancelPayment() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         initfunc()
     }
@@ -95,43 +138,44 @@ class LibraryViewController: UIViewController {
             self.hideProgress()
             let dic = response as! NSDictionary
             if dic.value(forKey: "success") as!Bool == true{
-             if let data = dic.value(forKey: "data") as? NSDictionary {
-             if let token = data.value(forKey: "clientToken") as? String {
-                 self.toKinizationKey = token
-                
-             }
+                if let data = dic.value(forKey: "data") as? NSDictionary {
+                    if let token = data.value(forKey: "clientToken") as? String {
+                        self.toKinizationKey = token
+                        
+                    }
                 }
-                        }
-                        else{
-                            self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
-                        }
+            }
+            else{
+                self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+            }
         }
     }
     @IBAction func PayMonthly(_ sender: Any) {
-        SetDropInPayment(amt:"7.99")
+       // SetDropInPayment(amt:"7.99")
     }
     @IBAction func PayYearly(_ sender: Any) {
-        SetDropInPayment(amt:"150")
+       // SetDropInPayment(amt:"150")
     }
-    func SetDropInPayment(amt:String){
-        let request =  BTDropInRequest()
-        let dropIn = BTDropInController(authorization: toKinizationKey, request: request)
-        { [unowned self] (controller, result, error) in
-            
-            if let error = error {
-                self.show(message: error.localizedDescription)
-                
-            } else if (result?.isCancelled == true) {
-                self.show(message: "Transaction Cancelled")
-                
-            } else if let nonce = result?.paymentMethod?.nonce{
-                self.sendRequestPaymentToServer(nonce: nonce,amount:amt)
-            }
-            controller.dismiss(animated: true, completion: nil)
-        }
-        
-        self.present(dropIn!, animated: true, completion: nil)
-    }
+//    func SetDropInPayment(amt:String){
+//        let request =  BTDropInRequest()
+//        let dropIn = BTDropInController(authorization: toKinizationKey, request: request)
+//        {
+//         [unowned self] (controller, result, error) in
+//            
+//            if let error = error {
+//                self.show(message: error.localizedDescription)
+//                
+//            } else if (result?.isCancelled == true) {
+//                self.show(message: "Transaction Cancelled")
+//                
+//            } else if let nonce = result?.paymentMethod?.nonce{
+//                self.sendRequestPaymentToServer(nonce: nonce,amount:amt)
+//            }
+//            controller.dismiss(animated: true, completion: nil)
+//        }
+//        
+//        self.present(dropIn!, animated: true, completion: nil)
+//    }
     func show(message: String) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: message, message: "", preferredStyle: .alert)
@@ -342,7 +386,21 @@ extension LibraryViewController : UITableViewDelegate,UITableViewDataSource{
             else if indexPath.row == 2{
                 gotoSession.SessionMainName = "2"
             }
-            
+            else if indexPath.row == 3{
+                gotoSession.SessionMainName = "3"
+            }
+            else if indexPath.row == 4{
+                gotoSession.SessionMainName = "4"
+            }
+            else if indexPath.row == 5{
+                gotoSession.SessionMainName = "5"
+            }
+            else if indexPath.row == 6{
+                gotoSession.SessionMainName = "6"
+            }
+            else if indexPath.row == 7{
+                gotoSession.SessionMainName = "7"
+            }
         }
        else if indexPath.section == 3{
             let gotoSession = self.storyboard?.instantiateViewController(withIdentifier: "SessionViewController") as! SessionViewController
@@ -366,6 +424,7 @@ extension LibraryViewController : UITableViewDelegate,UITableViewDataSource{
             }
             else if indexPath.row == 4{
                 gotoSession.SessionMainName = "4"
+                
             }
             else if indexPath.row == 5{
                 gotoSession.SessionMainName = "5"
@@ -391,18 +450,21 @@ extension LibraryViewController : UICollectionViewDelegate ,UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NatureImageCollectionCell", for: indexPath) as! NatureImageCollectionCell
         let indexNature = natureArr[indexPath.item]
+        
+        if let lockUnlockStatus = (indexNature as AnyObject).value(forKey: "lockUnlockStatus") as? NSNumber {
+            if lockUnlockStatus == 0{
+                cell.natureLockStatus.isHidden = false
+            }else{
+                cell.natureLockStatus.isHidden = true
+            }
+        }
         if let imageString = (indexNature as AnyObject).value(forKey: "images") as? String {
             if URL(string: (imageString) ) != nil {
                 cell.natureImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
                 cell.natureImage.contentMode = .scaleToFill
             }
         }
-//        if indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2{
-            cell.natureLockStatus.isHidden = true
-//        }
-//        else{
-//            cell.natureLockStatus.isHidden = false
-//        }
+       
         return cell
     }
     
@@ -412,72 +474,71 @@ extension LibraryViewController : UICollectionViewDelegate ,UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let indexNature = natureArr[indexPath.item]
-        if let audio = (indexNature as AnyObject).value(forKey: "songs") as? String {
-            _ = UIStoryboard(name: "Main", bundle: nil)
-            let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-            let url = NSURL(string: audio)
-            viewController.audioUrl = url!
-            self.navigationController?.pushViewController(viewController, animated: true)
+//        if let audio = (indexNature as AnyObject).value(forKey: "songs") as? String {
+//            _ = UIStoryboard(name: "Main", bundle: nil)
+//            let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+//            let url = NSURL(string: audio)
+//            viewController.audioUrl = url!
+//            self.navigationController?.pushViewController(viewController, animated: true)
+//        }
+        if let lockUnlockStatus = (indexNature as AnyObject).value(forKey: "lockUnlockStatus") as? NSNumber {
+            if lockUnlockStatus == 0{
+               // self.fetchClientToken()
+                self.promoCodeView.isHidden = false
+            }else{
+                self.performPushSeguefromController(identifier: "MusicPlayerViewController")
+            }
         }
-//        if indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2{
-//            self.performPushSeguefromController(identifier: "MusicPlayerViewController")
-//        }
-//        else{
-            //self.promoCodeView.isHidden = false
-//        }
     }
     
 }
 extension LibraryViewController {
-    
     func GetHomeData(){
         self.showProgress()
-      let userID = UserDefaults.standard.value(forKey: "UserID")
-             let parameter : [String : Any] = ["user_id": userID as Any,
-                "type_id": "2"]
-             print(parameter)
-   networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.GetHomeData.caseValue, parameter: parameter) { (response) in
-       print(response)
-       self.hideProgress()
-       let dic = response as! NSDictionary
-       if dic.value(forKey: "success") as!Bool == true{
-        if let data = dic.value(forKey: "data") as? NSDictionary {
-            if let homeData = data.value(forKey: "categories") as? NSArray {
-                self.homeCategoryData = homeData
-                print(self.homeCategoryData)
-            }
-          if let randomDictionary = data.value(forKey: "random") as? NSDictionary {
-               self.randomDict = randomDictionary
-          //      if let name = randomDictionary.value(forKey: "name") as? String{
-          //          self.mainBannerLabel.text = name
-           //     }
-            self.mainBannerLabel.isHidden = true
-                if let imageString = randomDictionary.value(forKey: "image") as? String{
-                    if URL(string: (imageString) ) != nil {
-                        self.mainBannerImageView.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
-                        self.mainBannerImageView.contentMode = .scaleAspectFill
-                        self.mainBannerImageView.layer.cornerRadius = 5
+        let userID = UserDefaults.standard.value(forKey: "UserID")
+        let parameter : [String : Any] = ["user_id": userID as Any, "type_id": "2"]
+        print(parameter)
+        networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.GetHomeData.caseValue, parameter: parameter) { (response) in
+            print(response)
+            self.hideProgress()
+            let dic = response as! NSDictionary
+            if dic.value(forKey: "success") as!Bool == true{
+                if let data = dic.value(forKey: "data") as? NSDictionary {
+                    if let homeData = data.value(forKey: "categories") as? NSArray {
+                        self.homeCategoryData = homeData
+                        print(self.homeCategoryData)
+                    }
+                    if let randomDictionary = data.value(forKey: "random") as? NSDictionary {
+                        self.randomDict = randomDictionary
+                        //      if let name = randomDictionary.value(forKey: "name") as? String{
+                        //          self.mainBannerLabel.text = name
+                        //     }
+                        self.mainBannerLabel.isHidden = true
+                        if let imageString = randomDictionary.value(forKey: "image") as? String{
+                            if URL(string: (imageString) ) != nil {
+                                self.mainBannerImageView.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
+                                self.mainBannerImageView.contentMode = .scaleAspectFill
+                                self.mainBannerImageView.layer.cornerRadius = 5
+                            }
+                        }
+                    }
+                    if let stuffArray = data.value(forKey: "mystuff") as? NSArray {
+                        self.stuffArr = stuffArray
+                    }
+                    if let natureArray = data.value(forKey: "nature") as? NSArray {
+                        self.natureArr = natureArray
+                    }
+                    if let interest = data.value(forKey: "interested") as? NSArray {
+                        self.interestArr = interest
                     }
                 }
-            }
-            if let stuffArray = data.value(forKey: "mystuff") as? NSArray {
-                self.stuffArr = stuffArray
-            }
-            if let natureArray = data.value(forKey: "nature") as? NSArray {
-                self.natureArr = natureArray
-            }
-            if let interest = data.value(forKey: "interested") as? NSArray {
-                self.interestArr = interest
+                self.HomeTableView.dataSource = self
+                self.HomeTableView.delegate = self
+                self.HomeTableView.reloadData()
+            }else{
+                self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
             }
         }
-        self.HomeTableView.dataSource = self
-        self.HomeTableView.delegate = self
-        self.HomeTableView.reloadData()
-                   }
-                   else{
-                       self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
-                   }
-   }
-     
+        
     }
 }

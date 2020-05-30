@@ -170,6 +170,11 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.3):
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
+  - Braintree (4.33.0):
+    - Braintree/Card (= 4.33.0)
+    - Braintree/Core (= 4.33.0)
+    - Braintree/PayPal (= 4.33.0)
+    - Braintree/UI (= 4.33.0)
   - Braintree/Card (4.33.0):
     - Braintree/Core
   - Braintree/Core (4.33.0)
@@ -188,6 +193,9 @@ PODS:
     - Braintree/PayPalDataCollector
     - Braintree/PayPalUtils
   - Braintree/PayPalUtils (4.33.0)
+  - Braintree/UI (4.33.0):
+    - Braintree/Card
+    - Braintree/Core
   - Braintree/UnionPay (4.33.0):
     - Braintree/Card
     - Braintree/Core
@@ -349,6 +357,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Braintree
   - BraintreeDropIn
   - FacebookLogin
   - FBSDKLoginKit
@@ -446,6 +455,6 @@ SPEC CHECKSUMS:
   SwiftySound: 9eb28bb14edb601b40027e44319e0ef8383f88bf
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
 
-PODFILE CHECKSUM: 08de4c91a3e65091d3aa7066cd9d343426457275
+PODFILE CHECKSUM: 82e833b981595a116c3427821e0e2292d2eccddd
 
 COCOAPODS: 1.8.4

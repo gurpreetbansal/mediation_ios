@@ -48,7 +48,7 @@ class networkServices{
                   multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
               }
 
-          },               to: url!,headers:(headers))
+          },               to: url!,headers:nil)
           { (result) in
               switch(result) {
                   
@@ -58,8 +58,8 @@ class networkServices{
                       print("Upload Progress: \(progress.fractionCompleted)")
                   })
                   DispatchQueue.main.async {
-                      upload.responseJSON { response in
-                          completion(response.result.value)
+                      upload.responseString { response in
+                        completion(response.result.value as Any)
                       }
                   }
               case .failure(let encodingError):
@@ -387,5 +387,75 @@ extension UIViewController : URLSessionDataDelegate,URLSessionTaskDelegate,URLSe
         }
         task.resume()
     }
-}
 
+
+//MARK:================================= UPLOAD DOCUMENT ==========================================
+    func uploadDocuments(urlString:String,params:[String:String]?,documentUrl:URL?,success:@escaping ( _ response: NSDictionary)-> Void, failure:@escaping ( _ error: Error) -> Void){
+        let boundary: String = "------VohpleBoundary4QuqLuM1cE5lMwCy"
+        let contentType: String = "multipart/form-data; boundary=\(boundary)"
+        let headers = [ "content-type": "application/json"]
+        var request = URLRequest(url: URL(string: urlString)!)
+        
+        for (key, value) in headers {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        request.httpShouldHandleCookies = false
+        request.timeoutInterval = 60
+        request.httpMethod = "POST"
+        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        let body = NSMutableData()
+        if let parameters = params {
+            for (key, value) in parameters {
+                body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: String.Encoding.utf8)!)
+                body.append("\(value)\r\n".data(using: String.Encoding.utf8)!)
+            }
+        }
+        //which field you have to sent image on server
+        let fileName: String = "songs"
+        
+        
+        if documentUrl != nil {
+            body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+            body.append("Content-Disposition: form-data; name=\"\(fileName)\"; filename=\"application/audio.mp3\"\r\n".data(using: String.Encoding.utf8)!)
+            body.append("Content-Type:application/audio/mp3\r\n\r\n".data(using: String.Encoding.utf8)!)
+            body.append(NSData(contentsOf: documentUrl!)! as Data)
+            body.append("\r\n".data(using: String.Encoding.utf8)!)
+        }
+        
+        
+        body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+        request.httpBody = body as Data
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            DispatchQueue.main.async {
+                self.hideProgress()
+                
+                if(error != nil){
+                    // print(String(data: data!, encoding: .utf8) ?? "No response from server")
+                    failure(error!)
+                    
+                }
+                if let responseData = data{
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: responseData, options: [])
+                        print(json)
+                        success(json as! NSDictionary)
+                        
+                    }catch let err{
+                        print(err)
+                        
+                        failure(err)
+                        
+                    }
+                }
+                
+            }
+            
+        }
+        task.resume()
+    }
+   
+}

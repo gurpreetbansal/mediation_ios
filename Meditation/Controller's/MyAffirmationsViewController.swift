@@ -40,14 +40,55 @@ class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
     var musicIdArryForRecording = [Int]()
     var musicIdForRecording = Int()
     var myAffirmationArray = NSArray()
+     fileprivate var sourceIndexPath: IndexPath?
     override func viewDidLoad() {
         super.viewDidLoad()
         GetRecordingsList()
         initfunc()
         setupView()
-        //        AffirmationTF.attributedPlaceholder = NSAttributedString(string: "Type your affirmation here...",
-        //                                                               attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        // Do any additional setup after loading the view.
+        // tapRecognizer, placed in viewDidLoad
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MyAffirmationsViewController.longPressGestureRecognized))
+        AffermationTableView.addGestureRecognizer(longPress)
+        
+    }
+    //Called, when long press occurred
+    @objc func longPressGestureRecognized(longPress: UILongPressGestureRecognizer) {
+        let state = longPress.state
+        let location = longPress.location(in: self.AffermationTableView)
+        guard let indexPath = self.AffermationTableView.indexPathForRow(at: location) else {
+            self.cleanup()
+            return
+        }
+        switch state {
+        case .began:
+            sourceIndexPath = indexPath
+            guard let cell = self.AffermationTableView.cellForRow(at: indexPath) else { return }
+            if audioRecorder == nil {
+                startRecording()
+                let audioAsset = AVURLAsset.init(url: getFileURL(), options: nil)
+                let audioDuration = audioAsset.duration
+                let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
+                totalAudioDuration = stringFromTimeInterval(interval: audioDurationSeconds) as String
+                isAudioPresent = true
+                musicUrl = getFileURL() as NSURL
+                
+                meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateProgressBar(timer:)), userInfo:nil, repeats:true)
+            }
+            break
+        case .ended:
+            if audioRecorder != nil {
+                finishRecording(success: true)
+                let indexCategory = myAffirmationArray[indexPath.row]
+                PostMySongList(Title: (indexCategory as AnyObject).value(forKey: "songs_title") as! String,cat_id: "\((indexCategory as AnyObject).value(forKey: "cat_id") as! NSNumber)",songID: "\((indexCategory as AnyObject).value(forKey: "id") as! NSNumber)")
+            }
+            break
+        default: break
+    }
+    }
+    
+    private func cleanup() {
+        self.sourceIndexPath = nil
+        self.AffermationTableView.reloadData()
     }
     
     func initfunc(){
@@ -83,7 +124,7 @@ class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBAction func SendrecordedSong(_ sender: UIButton) {
         if AffirmationTF.text != "" {
             isAudioPresent = false
-            PostMySongList()
+            postSongTitle()
             AffirmationTF.text = ""
         }
     }
@@ -127,7 +168,8 @@ class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
         else if sender.state == .ended  {
             if audioRecorder != nil {
                 finishRecording(success: true)
-                PostMySongList()
+                
+                //PostMySongList()
             }
         }
     }
@@ -139,7 +181,7 @@ class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
             audioRecorder!.updateMeters()
         }else{
             finishRecording(success: true)
-            PostMySongList()
+           // PostMySongList()
         }
     }
 }
@@ -181,7 +223,7 @@ extension MyAffirmationsViewController : UITableViewDelegate,UITableViewDataSour
             if status == 1 {
                 print("music already present")
             }else {
-                cell.RecordTap.addGestureRecognizer(self.longPressGesture())
+                //cell.RecordTap.addGestureRecognizer(self.longPressGesture())
             }
         }
         
@@ -226,15 +268,11 @@ extension MyAffirmationsViewController : UITableViewDelegate,UITableViewDataSour
         
         return cell
     }
-    
+   
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
-    func longPressGesture() -> UILongPressGestureRecognizer {
-        let lpg = UILongPressGestureRecognizer(target: self, action: #selector(RecordMusic(_:)))
-        lpg.minimumPressDuration = 0.5
-        return lpg
-    }
+    
     @objc func AddToFavourite(_ sender:UIButton){
         let indexCategory = myAffirmationArray[sender.tag]
                     
@@ -255,12 +293,15 @@ extension MyAffirmationsViewController : UITableViewDelegate,UITableViewDataSour
         if let favouriteStatus = (indexCategory as AnyObject).value(forKey: "favrite_status") as? Int {
         if favouriteStatus == 0 {
             favKey = 1
+            AddToFavouriteApi(favStatus: "\(favKey)", Title: (indexCategory as AnyObject).value(forKey: "songs_title") as! String,cat_id: "\((indexCategory as AnyObject).value(forKey: "cat_id") as! NSNumber)",songID: "\((indexCategory as AnyObject).value(forKey: "id") as! NSNumber)")
         }else {
             favKey = 0
+            AddToFavouriteApi(favStatus: "\(favKey)", Title: (indexCategory as AnyObject).value(forKey: "songs_title") as! String,cat_id: "\((indexCategory as AnyObject).value(forKey: "cat_id") as! NSNumber)",songID: "\((indexCategory as AnyObject).value(forKey: "id") as! NSNumber)")
+            
             }
         }
         
-        AddToFavourite()
+        
     }
 }
 extension MyAffirmationsViewController{
@@ -278,7 +319,7 @@ extension MyAffirmationsViewController{
             let dic = response as! NSDictionary
             if dic.value(forKey: "success") as!Bool == true{
                 if let data = dic.value(forKey: "data") as? NSArray {
-                    self.myAffirmationArray = data
+                    self.myAffirmationArray = data.reversed() as NSArray
                 }
                 self.AffermationTableView.dataSource = self
                 self.AffermationTableView.delegate = self
@@ -291,16 +332,14 @@ extension MyAffirmationsViewController{
         
     }
     //MARK:- AddToFavourite
-    func AddToFavourite(){
+    func AddToFavouriteApi(favStatus:String,Title:String,cat_id:String,songID:String){
         self.showProgress()
                    let userID = UserDefaults.standard.value(forKey: "UserID")
-                   let parameter : [String : Any] = ["user_id": userID! as Any,
-                                                     "songs_title": musicTitleForRecording,
-                                                     //                                                           "songs_description": "",
-                       "cat_id":"\(catg_Id)",
-                       "songs_id":"\(musicIdForRecording)",
-                       "favrite" :favKey
-                   ]
+        let parameter : [String : Any] = ["user_id": userID! as Any,
+                                          "songs_title": Title,
+                                          "cat_id": cat_id,
+                                          "songs_id":songID,
+                                          "favrite" :favStatus]
                    print(parameter)
                    networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.PostMySongList.caseValue, parameter: parameter) {(response) in
                        print(response)
@@ -315,35 +354,68 @@ extension MyAffirmationsViewController{
                    }
     }
     
-    //MARK:- PostSong Api
-    func PostMySongList(){
-        if isAudioPresent {
+    func postSongTitle(){
             self.showProgress()
             let userID = UserDefaults.standard.value(forKey: "UserID")
             let parameter : [String : Any] = ["user_id": userID! as Any,
-                                              "songs_title": musicTitleForRecording,
-                                              //                                                           "songs_description": "",
-                "cat_id":"\(catg_Id)",
-                "songs_id":"\(musicIdForRecording)"
+                                              "songs_title": "\(AffirmationTF.text!)",
+                "songs":"",
+                "songs_images":"",
+                "songs_description":"",
+                "cat_id":"\(catg_Id)"
             ]
             print(parameter)
-            guard let audioFile: Data = try? Data (contentsOf: musicUrl as URL) else {return}
-            networkServices.shared.uploadAudio(methodName: methodName.UserCase.PostMySongList.caseValue, audioData: audioFile, name: "songs", appendParam: parameter as! [String : String]) { (response) in
+            networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.PostMySongList.caseValue, parameter: parameter) { (response) in
                 print(response)
                 self.hideProgress()
                 let dic = response as! NSDictionary
-                if dic.value(forKey: "success") as? Bool == true {
+                if dic.value(forKey: "success") as!Bool == true{
                     if let data = dic.value(forKey: "data") as? NSArray {
                         self.myAffirmationArray = data
                     }
-                    self.AffermationTableView.dataSource = self
-                    self.AffermationTableView.delegate = self
-                    self.AffermationTableView.reloadData()
+                    self.GetRecordingsList()
                 }
-                else {
+                else{
                     self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
                 }
             }
+            
+        }
+    
+    //MARK:- PostSong Api
+    func PostMySongList(Title:String,cat_id:String,songID:String){
+        if isAudioPresent {
+            self.showProgress()
+            let userID = UserDefaults.standard.value(forKey: "UserID") as! String
+            let parameter : [String : String] = ["user_id": userID,
+                                              "songs_title": Title,
+                                              "cat_id":"\(cat_id)",
+                                              "songs_id":"",
+                                              "songs_images" : "",
+                                              "songs_description" : ""
+            ]
+            print(parameter)
+            uploadDocuments(urlString: "https://meditation.customer-devreview.com/api/collections/postMySongs", params: parameter, documentUrl: musicUrl as URL, success: { (response) in
+                print(response)
+            }) { (Error) in
+                print(Error)
+            }
+            
+//            guard let audioFile: Data = try? Data (contentsOf: musicUrl as URL) else {return}
+//            networkServices.shared.uploadAudio(methodName: methodName.UserCase.PostMySongList.caseValue, audioData: audioFile, name: "songs", appendParam: parameter ) { (response) in
+//                print(response)
+//                self.hideProgress()
+//                let dic = response as! NSDictionary
+//                if dic.value(forKey: "success") as? Bool == true {
+//                    if let data = dic.value(forKey: "data") as? NSArray {
+//                        self.myAffirmationArray = data
+//                    }
+//                    self.GetRecordingsList()
+//                }
+//                else {
+//                    self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+//                }
+//            }
         }else{
             self.showProgress()
             let userID = UserDefaults.standard.value(forKey: "UserID")
@@ -363,9 +435,7 @@ extension MyAffirmationsViewController{
                     if let data = dic.value(forKey: "data") as? NSArray {
                         self.myAffirmationArray = data
                     }
-                    self.AffermationTableView.dataSource = self
-                    self.AffermationTableView.delegate = self
-                    self.AffermationTableView.reloadData()
+                    self.GetRecordingsList()
                 }
                 else{
                     self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)

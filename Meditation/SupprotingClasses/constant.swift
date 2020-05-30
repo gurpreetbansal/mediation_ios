@@ -12,6 +12,13 @@ import UIKit
 let googleAPiKey = "AIzaSyDZYWHdACwG4QM5BGXh5rJ5BTI3b_0FXOk"
 let BaseURL = "https://meditation.customer-devreview.com/api/"
 
+//new Braintree_Gateway
+ // 'environment' => 'sandbox',
+  var merchantId = "8dqh7byvnvbgfv3q"
+  var publicKey = "43wrqvzv9rjfmrf8"
+  var privateKey = "2774a014c7628642161604885b082412"
+
+
 public enum methodName{
     public enum UserCase{
         case userSignUP

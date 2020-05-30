@@ -23,7 +23,7 @@ target 'Meditation' do
    pod 'FacebookLogin'
   
    pod 'BraintreeDropIn'
-  
+   pod 'Braintree'
    pod 'SwiftySound'
    pod 'HGCircularSlider', '~> 2.0.0'
 

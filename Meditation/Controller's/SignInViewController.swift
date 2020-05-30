@@ -181,12 +181,12 @@ class SignInViewController: UIViewController,GIDSignInDelegate {
 extension SignInViewController{
     func  SignInData(){
            self.showProgress()
-          let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+        let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
           let parameter :[String: String] = [
               "email":emailTF.text!,
               "password":passwordTF.text!,
               "device_type":"ios",
-              "device_token":DeviceToken!
+              "device_token":"\(String(describing: DeviceToken))"
           ]
           print(parameter)
           networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.UserSignIn.caseValue, parameter: parameter) { (response) in

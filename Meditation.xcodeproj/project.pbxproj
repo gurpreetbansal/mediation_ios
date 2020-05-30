@@ -47,6 +47,8 @@
 		18AD038D23D5AF9500DB0757 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038C23D5AF9500DB0757 /* RegisterViewController.swift */; };
 		18AD038F23D5D68000DB0757 /* SelectVoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038E23D5D68000DB0757 /* SelectVoiceViewController.swift */; };
 		18AD039123D5D88700DB0757 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD039023D5D88700DB0757 /* Common.swift */; };
+		6597F7582481080E00D54CC9 /* Braintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6597F7572481080E00D54CC9 /* Braintree.framework */; };
+		6597F75A24810B9A00D54CC9 /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6597F75924810B9A00D54CC9 /* BraintreeDropIn.framework */; };
 		9BD15CBE3CFF9EB9C1DE97BE /* Pods_Meditation_MeditationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */; };
 		AB80B3207F3E8AE6E12BB843 /* Pods_Meditation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C229952E84815CFABE04B78 /* Pods_Meditation.framework */; };
 		CAFACD02BFAE75CFFCA702B2 /* Pods_MeditationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */; };
@@ -126,6 +128,8 @@
 		1A0FE023B4011E74DFA8E412 /* Pods-MeditationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeditationTests.debug.xcconfig"; path = "Target Support Files/Pods-MeditationTests/Pods-MeditationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2C229952E84815CFABE04B78 /* Pods_Meditation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meditation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B4499A50130363135D946F2 /* Pods-MeditationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeditationTests.release.xcconfig"; path = "Target Support Files/Pods-MeditationTests/Pods-MeditationTests.release.xcconfig"; sourceTree = "<group>"; };
+		6597F7572481080E00D54CC9 /* Braintree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Braintree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6597F75924810B9A00D54CC9 /* BraintreeDropIn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BraintreeDropIn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B5070893B58EB2482013CD /* Pods-Meditation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation.debug.xcconfig"; path = "Target Support Files/Pods-Meditation/Pods-Meditation.debug.xcconfig"; sourceTree = "<group>"; };
 		9934D0BC64302836FFDB8244 /* Pods-Meditation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation.release.xcconfig"; path = "Target Support Files/Pods-Meditation/Pods-Meditation.release.xcconfig"; sourceTree = "<group>"; };
 		C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeditationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +147,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6597F75A24810B9A00D54CC9 /* BraintreeDropIn.framework in Frameworks */,
+				6597F7582481080E00D54CC9 /* Braintree.framework in Frameworks */,
 				1835B97423E8341C0012E133 /* WebKit.framework in Frameworks */,
 				AB80B3207F3E8AE6E12BB843 /* Pods_Meditation.framework in Frameworks */,
 			);
@@ -170,6 +176,8 @@
 		07652BD3EE595B11E2C84EAA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6597F75924810B9A00D54CC9 /* BraintreeDropIn.framework */,
+				6597F7572481080E00D54CC9 /* Braintree.framework */,
 				1835B97323E8341B0012E133 /* WebKit.framework */,
 				2C229952E84815CFABE04B78 /* Pods_Meditation.framework */,
 				F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */,

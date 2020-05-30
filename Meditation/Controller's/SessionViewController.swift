@@ -13,7 +13,7 @@ class SessioncollectionCell : UICollectionViewCell{
     
     @IBOutlet var BackImage: UIImageView!
     @IBOutlet var SessionName: UILabel!
-     @IBOutlet var LockStatus: UIImageView!
+    @IBOutlet var LockStatus: UIImageView!
 }
 
 
@@ -36,11 +36,13 @@ class SessionViewController: UIViewController {
     var categoryId = Int()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.affirmationCollectionView.dataSource = self
+        self.affirmationCollectionView.delegate = self
         GetAffirmationData()
     }
     
     override func viewWillAppear(_ animated: Bool){
-        //initfunc()
+        initfunc()
     }
     func initfunc(){
         //Tap Gesture
@@ -170,22 +172,37 @@ class SessionViewController: UIViewController {
 }
 
 extension SessionViewController : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SessioncollectionCell", for: indexPath) as! SessioncollectionCell
+        
+                let indexAffirmation = affirmationArray[indexPath.item]
+                if let imageString = (indexAffirmation as AnyObject).value(forKey: "image") as? String {
+                    if URL(string: (imageString) ) != nil {
+                        cell.BackImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
+                        //cell.BackImage.contentMode = .scaleToFill
+                    }
+                }
+        return cell
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return affirmationArray.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SessioncollectionCell", for: indexPath) as! SessioncollectionCell
-        
-        let indexAffirmation = affirmationArray[indexPath.item]
-        if let imageString = (indexAffirmation as AnyObject).value(forKey: "image") as? String {
-            if URL(string: (imageString) ) != nil {
-                cell.BackImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
-                cell.BackImage.contentMode = .scaleToFill
-            }
-        }
-        
-//        cell.SessionName.text = sessionArray[indexPath.row]
+  
+    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SessioncollectionCell", for: indexPath) as! SessioncollectionCell
+//
+//        let indexAffirmation = affirmationArray[indexPath.item]
+//        if let imageString = (indexAffirmation as AnyObject).value(forKey: "image") as? String {
+//            if URL(string: (imageString) ) != nil {
+//                cell.BackImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
+//                cell.BackImage.contentMode = .scaleToFill
+//            }
+//        }
+//
+////        cell.SessionName.text = sessionArray[indexPath.row]
 //         if SessionMainName == "0"{
 //             cell.BackImage.image = #imageLiteral(resourceName: "weightSession")
 //            if indexPath.row == 0{
@@ -255,13 +272,13 @@ extension SessionViewController : UICollectionViewDelegate,UICollectionViewDataS
 //             cell.LockStatus.isHidden = false
 //        }
         
-        return cell
+//        return cell
+//
+//}
     
-}
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 105, height: 105)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: 105, height: 105)
+//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0{
@@ -276,8 +293,8 @@ extension SessionViewController : UICollectionViewDelegate,UICollectionViewDataS
 extension SessionViewController {
     func GetAffirmationData(){
         self.showProgress()
-        let userID = UserDefaults.standard.value(forKey: "UserID")
-        let parameter : [String : Any] = ["user_id": userID as Any,
+        let userID = UserDefaults.standard.value(forKey: "UserID") as! String
+        let parameter : [String : String] = ["user_id": userID,
                                           "cat_id": "\(categoryId)"]
         print(parameter)
         networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.MyAffirmation.caseValue, parameter: parameter) { (response) in
@@ -304,8 +321,7 @@ extension SessionViewController {
                             }                        }
                     }
                 }
-                self.affirmationCollectionView.dataSource = self
-                self.affirmationCollectionView.delegate = self
+                
                 self.affirmationCollectionView.reloadData()
             }
             else{

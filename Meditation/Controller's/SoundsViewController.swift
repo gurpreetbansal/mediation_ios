@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BraintreeDropIn
 import Braintree
 
 class SoundNatureImageTableCell : UITableViewCell{
@@ -78,31 +77,31 @@ class SoundsViewController: UIViewController {
         }
     }
     @IBAction func PayMonthly(_ sender: Any) {
-        SetDropInPayment(amt:"7.99",planType:"1")
+       // SetDropInPayment(amt:"7.99",planType:"1")
     }
     
     @IBAction func PayYearly(_ sender: Any) {
-        SetDropInPayment(amt:"150",planType:"2")
+       // SetDropInPayment(amt:"150",planType:"2")
     }
-    func SetDropInPayment(amt:String,planType:String){
-         let request =  BTDropInRequest()
-         let dropIn = BTDropInController(authorization: toKinizationKey, request: request)
-         { [unowned self] (controller, result, error) in
-             
-             if let error = error {
-                 self.show(message: error.localizedDescription)
-                 
-             } else if (result?.isCancelled == true) {
-                 self.show(message: "Transaction Cancelled")
-                 
-             } else if let nonce = result?.paymentMethod?.nonce{
-                self.sendRequestPaymentToServer(nonce: nonce,amount:amt,type:planType)
-             }
-             controller.dismiss(animated: true, completion: nil)
-         }
-         
-         self.present(dropIn!, animated: true, completion: nil)
-     }
+//    func SetDropInPayment(amt:String,planType:String){
+//         let request =  BTDropInRequest()
+//         let dropIn = BTDropInController(authorization: toKinizationKey, request: request)
+//         { [unowned self] (controller, result, error) in
+//
+//             if let error = error {
+//                 self.show(message: error.localizedDescription)
+//
+//             } else if (result?.isCancelled == true) {
+//                 self.show(message: "Transaction Cancelled")
+//
+//             } else if let nonce = result?.paymentMethod?.nonce{
+//                self.sendRequestPaymentToServer(nonce: nonce,amount:amt,type:planType)
+//             }
+//             controller.dismiss(animated: true, completion: nil)
+//         }
+//
+//         self.present(dropIn!, animated: true, completion: nil)
+//     }
      func show(message: String) {
          DispatchQueue.main.async {
              let alertController = UIAlertController(title: message, message: "", preferredStyle: .alert)

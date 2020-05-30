@@ -97,6 +97,8 @@ class SelectVoiceViewController: UIViewController {
             postSelectVoice()
         }
     }
+    @IBAction func playBtn(_ sender: UIButton) {
+    }
     
 }
 
@@ -109,42 +111,36 @@ extension SelectVoiceViewController : UITableViewDelegate,UITableViewDataSource{
         let voiceDict = self.VoiceData[indexPath.row] as! NSDictionary
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectVoiceCell", for: indexPath) as! SelectVoiceCell
         // Get data from voice data
-        cell.userName.text = voiceDict.value(forKey: "name") as! String
+        cell.userName.text = (voiceDict.value(forKey: "name") as! String)
         if (voiceDict.value(forKey: "image") as! String == "") {
             cell.UserImage.image = #imageLiteral(resourceName: "name")
-                   }
-                   else{
-                       // change image URL in to UIImage Type
-                       let profileimage = URL(string: "\(voiceDict.value(forKey: "image") as! String)")
-                        cell.UserImage.sd_setImage(with: profileimage, placeholderImage: #imageLiteral(resourceName: "name"))
-                   }
+        }
+        else{
+            // change image URL in to UIImage Type
+            let profileimage = URL(string: "\(voiceDict.value(forKey: "image") as! String)")
+            cell.UserImage.sd_setImage(with: profileimage, placeholderImage: #imageLiteral(resourceName: "name"))
+        }
         if let flagimage = voiceDict.value(forKey: "flag") as? String{
             let profileimage = URL(string: flagimage)
             cell.UserImage.sd_setImage(with: profileimage, placeholderImage: #imageLiteral(resourceName: "name"))
         }
         self.mySongString = voiceDict.value(forKey: "voices") as! String
-        assignSong(urlString: mySongString)
+      
         if selectCell == indexPath.row{
             if isSelectedcell == true{
-                       cell.playPauseBtn.setImage(#imageLiteral(resourceName: "PrimoCodePauseSign"), for: .normal)
-                
-                self.voiceId = "\(voiceDict.value(forKey: "id") as! NSNumber)" as! String
-                print("your voice id is :- \(self.voiceId)")
-                self.selectedVoiceId.removeAll()
-                self.selectedVoiceId.append(self.voiceId)
-                       isPlay()
-                   }
-                   else{
-                      cell.playPauseBtn.setImage(#imageLiteral(resourceName: "PlayWhite"), for: .normal)
-                       isPause()
-                   }
+                cell.playPauseBtn.setImage(#imageLiteral(resourceName: "PrimoCodePauseSign"), for: .normal)
+            }
+            else{
+                cell.playPauseBtn.setImage(#imageLiteral(resourceName: "PlayWhite"), for: .normal)
+               
+            }
         }
         else{
             cell.playPauseBtn.setImage(#imageLiteral(resourceName: "PlayWhite"), for: .normal)
-            isPause()
+           
         }
         if indexPath.row == 0{
-           cell.BackView.initGradientView(view: cell.BackView, colour1: LightSkyBlue_Colour, colour2: Green_Colour)
+            cell.BackView.initGradientView(view: cell.BackView, colour1: LightSkyBlue_Colour, colour2: Green_Colour)
         }
         else if indexPath.row == 1{
             cell.BackView.initGradientView(view: cell.BackView, colour1: Pink_Colour, colour2: Orange_Colour)
@@ -171,8 +167,41 @@ extension SelectVoiceViewController : UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectCell = indexPath.row
-           isSelectedcell = true
+        let voiceDict = self.VoiceData[indexPath.row] as! NSDictionary
+        self.mySongString = voiceDict.value(forKey: "voices") as! String
+        assignSong(urlString: mySongString)
         
+        if isSelectedcell == false{
+            if selectCell == indexPath.row{
+                isSelectedcell = true
+                self.voiceId = "\(voiceDict.value(forKey: "id") as! NSNumber)"
+                print("your voice id is :- \(self.voiceId)")
+                self.selectedVoiceId.removeAll()
+                self.selectedVoiceId.append(self.voiceId)
+                isPlay()
+            }else{
+                isSelectedcell = false
+                isPause()
+            }
+        }
+        else{
+            if selectCell == indexPath.row{
+                if isSelectedcell == true{
+                    isSelectedcell = false
+                    isPause()
+                }else{
+                    isSelectedcell = true
+                    self.voiceId = "\(voiceDict.value(forKey: "id") as! NSNumber)"
+                    print("your voice id is :- \(self.voiceId)")
+                    self.selectedVoiceId.removeAll()
+                    self.selectedVoiceId.append(self.voiceId)
+                    isPlay()
+                }
+            }else{
+                isSelectedcell = false
+                isPause()
+            }
+        }
          tableView.reloadData()
     }
     
@@ -189,7 +218,7 @@ extension SelectVoiceViewController{
             let dic = response as! NSDictionary
             print(dic)
             if let data = dic.value(forKey: "data")as? NSArray{
-                self.VoiceData = data as! NSArray
+                self.VoiceData = data 
                 self.voiceTableView.reloadData()
             }
         }
@@ -210,11 +239,11 @@ extension SelectVoiceViewController{
             self.hideProgress()
             let dic = response as! NSDictionary
             if dic.value(forKey: "success") as!Bool == true{
-                            self.performPushSeguefromController(identifier: "SelectCategoriesViewController")
-                        }
-                        else{
-                            self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
-                        }
+                self.performPushSeguefromController(identifier: "SelectCategoriesViewController")
+            }
+            else{
+                self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+            }
         }
         
     }
