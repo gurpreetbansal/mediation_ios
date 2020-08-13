@@ -11,31 +11,73 @@ import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FacebookLogin
-
+import AuthenticationServices
+import Security
+import UserNotifications
+@available(iOS 13.0, *)
 class SignInViewController: UIViewController,GIDSignInDelegate {
  
+   
+    @IBOutlet weak var appleView: DesignableView!
     @IBOutlet var View1: DesignableView!
     @IBOutlet var emailTF: UITextField!
     @IBOutlet var passwordTF: UITextField!
-    
+      private lazy var blackButton = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // check user id for login or already login
-               if  UserDefaults.standard.value(forKey: "UserID") as? String  != nil{
-                   performPushSeguefromController(identifier: "TabBarController")
-               }
-               else {
-                   let userId = UserDefaults.standard.string(forKey: "id") ?? "could not find any id"
-                   print(userId)
-               }
+        if  UserDefaults.standard.value(forKey: "UserID") as? String  != nil{
+            performPushSeguefromController(identifier: "TabBarController")
+        } else {
+            let userId = UserDefaults.standard.string(forKey: "id") ?? "could not find any id"
+            print(userId)
+        }
         GIDSignIn.sharedInstance()?.delegate = self
-       GIDSignIn.sharedInstance()?.presentingViewController = self
-       
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
+        setUpSignInAppleButton()
+        
         // Do any additional setup after loading the view.
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+       // checkNotification()
+    }
+    
+    
+    //MARK:- Setup apple id button
+    func setUpSignInAppleButton() {
+       let authorizationButton = ASAuthorizationAppleIDButton()
+       authorizationButton.addTarget(self, action: #selector(handleLogInWithAppleID), for: .touchUpInside)
+       self.appleView.addSubview(authorizationButton)
+        
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+       
+           NSLayoutConstraint.activate([
+           authorizationButton.centerXAnchor.constraint(equalTo: self.appleView.centerXAnchor),
+           authorizationButton.centerYAnchor.constraint(equalTo: self.appleView.centerYAnchor),
+           authorizationButton.widthAnchor.constraint(equalTo: self.appleView.widthAnchor),
+           authorizationButton.heightAnchor.constraint(equalTo: self.appleView.heightAnchor)
+           ])
+        
+        
+        
+    }
+    @objc func handleLogInWithAppleID() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
     //MARK:- Login Button Tap
+    
+    
+    
     @IBAction func loginTap(_ sender: DesignableButton) {
         if emailTF.text == ""{
             self.ShowAlertView(title: AppName, message: "Please enter valid email first", viewController: self)
@@ -46,8 +88,8 @@ class SignInViewController: UIViewController,GIDSignInDelegate {
         else if passwordTF.text == ""{
             self.ShowAlertView(title: AppName, message: "Please enter password first", viewController: self)
         }
-          else if ((passwordTF.text?.count)! <= 6){
-                          ShowAlertView(title: AppName, message: "Password must be greater than six digits", viewController: self)
+          else if ((passwordTF.text?.count)! <= 5){
+                          ShowAlertView(title: AppName, message: "Password must be greater than five digits", viewController: self)
                       }
        else{
             SignInData() //API Call
@@ -87,16 +129,16 @@ class SignInViewController: UIViewController,GIDSignInDelegate {
                let pic = user.profile.imageURL(withDimension: UInt(dimension))
                print(pic!)
                let urlString : String = (pic!.absoluteString)
-               let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+            //let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")!
                let parameter = ["email": email!,
                                 "first_name" : fullName!,
                                "profile" : urlString,
                                 "social_id" :  userId!,
                                  "social_type" : "Gmail",
                                 "device_type" : "ios",
-                                "device_token" : DeviceToken]
+                                "device_token" : "\(UserDefaults.standard.string(forKey: "DeviceToken") ?? "123131313121313131")"]
             print(parameter)
-               self.RegisterApi(APIparameter:parameter as! [String : String])
+            self.RegisterApi(APIparameter:parameter )
            }
        }
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
@@ -106,26 +148,28 @@ class SignInViewController: UIViewController,GIDSignInDelegate {
       }
       
       // MARK:- Register Data on Server With Alarmofire without profile pic
-      func RegisterApi(APIparameter:[String:String]){
-          showProgress()
-          networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.SocialLogIn.caseValue, parameter:APIparameter) { (response) in
-              print(response)
-              self.hideProgress()
-              let dic = response as! NSDictionary
-              print (dic)
-              if dic.value(forKey: "success") as!Bool == true{
-                  if let data = dic.value(forKey: "data") as? NSDictionary{
-                      let userID = data.value(forKey: "user_id") as! NSString
-                      UserDefaults.standard.set(userID, forKey: "UserID")
-                    UserDefaults.standard.set("", forKey: "oldpassword")
-                  }
-                  self.performPushSeguefromController(identifier: "TabBarController")
-              }
-              else{
-                  self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
-              }
-          }
-      }
+    func RegisterApi(APIparameter:[String:String]){
+                self.showProgress()
+                networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.SocialLogIn.caseValue, parameter:APIparameter) { (response) in
+                    print(response)
+                    self.hideProgress()
+                    let dic = response as! NSDictionary
+                    print (dic)
+                    if dic.value(forKey: "success") as!Bool == true{
+                        if let data = dic.value(forKey: "data") as? NSDictionary{
+                            let userID = data.value(forKey: "user_id") as! NSString
+                            UserDefaults.standard.set(userID, forKey: "UserID")
+                            UserDefaults.standard.set("", forKey: "oldpassword")
+                        }
+                        self.performPushSeguefromController(identifier: "TabBarController")
+                    }
+                    else{
+                        self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+                    }
+                }
+           
+        
+    }
     //MARK:- faceBook Button Tap
     @IBAction func facebookBtnTap(_ sender: UIButton) {
        // let fbLoginManager : LoginManager = LoginManager()
@@ -158,18 +202,18 @@ class SignInViewController: UIViewController,GIDSignInDelegate {
                       let pictureData = picture.value(forKey: "data") as! NSDictionary
                       let mypictureUrl = (pictureData.value(forKey: "url")) as!String
                       //let urlString : String = (mypictureUrl.absoluteString)
-                      let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
+                  //  let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")!
                       let parameter = ["email":  user_email,
                                        "first_name" :   user_name,
                                       "profile" : mypictureUrl,
                                        "social_type" : "facebook",
                                        "social_id" :    user_id,
                                        "device_type" : "ios",
-                                       "device_token" : DeviceToken
+                                       "device_token" : "\(UserDefaults.standard.string(forKey: "DeviceToken") ?? "123131313121313131")"
                           
                       ]
                     print(parameter)
-                      self.RegisterApi(APIparameter:parameter as! [String : String] )
+                    self.RegisterApi(APIparameter:parameter )
                       
                   }
               })
@@ -178,32 +222,119 @@ class SignInViewController: UIViewController,GIDSignInDelegate {
     
 }
 //MARK:- API integration
+@available(iOS 13.0, *)
 extension SignInViewController{
-    func  SignInData(){
-           self.showProgress()
-        let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
-          let parameter :[String: String] = [
-              "email":emailTF.text!,
-              "password":passwordTF.text!,
-              "device_type":"ios",
-              "device_token":"\(String(describing: DeviceToken))"
-          ]
-          print(parameter)
-          networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.UserSignIn.caseValue, parameter: parameter) { (response) in
-              print(response)
-              self.hideProgress()
-              let dic = response as! NSDictionary
-              if dic.value(forKey: "success") as!Bool == true{
-                  if let data = dic.value(forKey: "data") as? NSDictionary{
-                      let userID = data.value(forKey: "user_id") as! NSString
-                      UserDefaults.standard.set(userID, forKey: "UserID")
-                  }
-                  self.performPushSeguefromController(identifier: "SelectVoiceViewController")
-              }
-              else{
-                  self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
-              }
-          }
-     }
+    func SignInData(){
+                // Already authorized
+                self.showProgress()
+               // let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")!
+                let parameter :[String: String] = [
+                    "email":self.emailTF.text!,
+                    "password":self.passwordTF.text!,
+                    "device_type":"ios",
+                    "device_token":"\(UserDefaults.standard.string(forKey: "DeviceToken") ?? "123131313121313131")"
+                ]
+                print(parameter)
+                networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.UserSignIn.caseValue, parameter: parameter) { (response) in
+                    print(response)
+                    self.hideProgress()
+                    let dic = response as! NSDictionary
+                    if dic.value(forKey: "success") as!Bool == true{
+                        if let data = dic.value(forKey: "data") as? NSDictionary{
+                            let userID = data.value(forKey: "user_id") as! NSString
+                            UserDefaults.standard.set(userID, forKey: "UserID")
+                        }
+                        self.performPushSeguefromController(identifier: "SelectVoiceViewController")
+                    }
+                    else{
+                        self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+                    }
+                }
+            }
     
+}
+//MARK:-Apple Id login
+@available(iOS 13.0, *)
+extension SignInViewController:ASAuthorizationControllerDelegate{
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            
+            // Create an account in your system.
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName?.givenName
+            let email = appleIDCredential.email
+            UserDefaults.standard.set("\(userIdentifier)", forKey: "userIdentifier")
+            // For the purpose of this demo app, store the `userIdentifier` in the keychain.
+          
+            
+            // Check User is either Logged in with Apple Id or not ...
+            if email == nil{
+                let Alert = UIAlertController(title: "Alert", message: "It looks you didn't reset your existing account to Sign In again. Please follow these steps, open the Settings - tap your Account - Password & security - Apple ID logins. Find your application under Sign In with Apple and swipe to delete it.", preferredStyle: UIAlertController.Style.alert)
+                
+                Alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (action: UIAlertAction!) in
+                    print("Handle Ok logic here")
+                   guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                       return
+                   }
+
+                   if UIApplication.shared.canOpenURL(settingsUrl) {
+                       UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                           print("Settings opened: \(success)") // Prints true
+                       })
+                   }
+                }))
+                Alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+                    print("Handle Cancel Logic here")
+                    Alert .dismiss(animated: true, completion: nil)
+                }))
+                self.present(Alert, animated: true, completion: nil)
+                
+            }else{
+                self.signInApple(userEmail: email!, userToken: userIdentifier, full_name: fullName!)
+            }
+            
+            
+            
+            // For the purpose of this demo app, show the Apple ID credential information
+        
+        case let passwordCredential as ASPasswordCredential:
+        
+            // Sign in using an existing iCloud Keychain credential.
+            _ = passwordCredential.user
+            _ = passwordCredential.password
+            
+            // For the purpose of this demo app, show the password credential as an alert.
+            DispatchQueue.main.async {
+               // self.showPasswordCredentialAlert(username: username, password: password)
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    func signInApple(userEmail:String, userToken:String, full_name:String) {
+       // let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")!
+         let parameter = ["email":  userEmail,
+                          "first_name" : full_name,
+                          "profile" : "",
+                          "social_type" : "apple",
+                          "social_id" : userToken,
+                          "device_type" : "ios",
+                          "device_token" : "\(UserDefaults.standard.string(forKey: "DeviceToken") ?? "123131313121313131")"]
+       print(parameter)
+       self.RegisterApi(APIparameter:parameter )
+
+    }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("AppleID Credential failed with error: \(error.localizedDescription)")
+    }
+}
+@available(iOS 13.0, *)
+extension SignInViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
 }

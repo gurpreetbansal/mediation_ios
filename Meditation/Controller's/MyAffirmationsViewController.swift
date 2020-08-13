@@ -8,9 +8,10 @@
 
 import UIKit
 import AVFoundation
-
+import Toast_Swift
 class AffirmationTableCell : UITableViewCell{
     
+    @IBOutlet weak var recordBtn: RecordButton!
     @IBOutlet weak var favStatusImageView: UIImageView!
     @IBOutlet var favStatus: UIButton!
     @IBOutlet var BackImage: UIImageView!
@@ -18,7 +19,53 @@ class AffirmationTableCell : UITableViewCell{
     @IBOutlet var recordText: UILabel!
 }
 
-class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
+class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate, RecordButtonDelegate {
+    func tapButton(isRecording: Bool, _ sender: UITapGestureRecognizer) {
+        var superview = sender.view
+        while let view = superview, !(view is AffirmationTableCell){
+            superview = view.superview
+        }
+        guard let selectedCell = superview as? AffirmationTableCell else {
+            print("button is not contained in a table view cell")
+            return
+        }
+        guard let indexPath = AffermationTableView.indexPath(for: selectedCell) else {
+            print("failed to get index path for cell containing button")
+            return
+        }
+        print(indexPath.row)
+        
+        if isRecording {
+            print("Start recording")
+            self.view.makeToast("Recording Started", duration: 5.0, position: .bottom)
+            sourceIndexPath = indexPath
+            guard self.AffermationTableView.cellForRow(at: indexPath) != nil else { return }
+            if audioRecorder == nil {
+                startRecording()
+                let audioAsset = AVURLAsset.init(url: getFileURL(), options: nil)
+                let audioDuration = audioAsset.duration
+                let audioDurationSeconds = CMTimeGetSeconds(audioDuration)
+                totalAudioDuration = stringFromTimeInterval(interval: audioDurationSeconds) as String
+                isAudioPresent = true
+                musicUrl = getFileURL() as NSURL
+                
+                meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateProgressBar(timer:)), userInfo:nil, repeats:true)
+            }
+        } else {
+            print("Stop recording")
+            self.view.makeToast("Recording Stopped", duration: 1.0, position: .bottom)
+            if audioRecorder != nil {
+                finishRecording(success: true)
+                let indexCategory = myAffirmationArray[indexPath.row]
+                self.view.makeToast("Start saving Affirmation", duration: 1.0, position: .bottom)
+                
+                PostMySongList(Title: (indexCategory as AnyObject).value(forKey: "songs_title") as! String,cat_id: "\((indexCategory as AnyObject).value(forKey: "cat_id") as! NSNumber)",songID: "\((indexCategory as AnyObject).value(forKey: "id") as! NSNumber)")
+            }
+        }
+        
+    }
+    
+    
     
     @IBOutlet weak var AffermationTableView: UITableView!
     @IBOutlet var AffirmationTF: UITextField!
@@ -34,21 +81,21 @@ class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var affirmationBased = ""
-    var catg_Id = Int()
+    var catg_Id = ""
     var musicTitleArrayForRecording = [String]()
     var musicTitleForRecording = String()
     var musicIdArryForRecording = [Int]()
     var musicIdForRecording = Int()
     var myAffirmationArray = NSArray()
-     fileprivate var sourceIndexPath: IndexPath?
+    fileprivate var sourceIndexPath: IndexPath?
     override func viewDidLoad() {
         super.viewDidLoad()
         GetRecordingsList()
         initfunc()
         setupView()
         // tapRecognizer, placed in viewDidLoad
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MyAffirmationsViewController.longPressGestureRecognized))
-        AffermationTableView.addGestureRecognizer(longPress)
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(MyAffirmationsViewController.longPressGestureRecognized))
+//        AffermationTableView.addGestureRecognizer(longPress)
         
     }
     //Called, when long press occurred
@@ -61,8 +108,9 @@ class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
         }
         switch state {
         case .began:
+            self.view.makeToast("Recording Started", duration: 5.0, position: .bottom)
             sourceIndexPath = indexPath
-            guard let cell = self.AffermationTableView.cellForRow(at: indexPath) else { return }
+            guard self.AffermationTableView.cellForRow(at: indexPath) != nil else { return }
             if audioRecorder == nil {
                 startRecording()
                 let audioAsset = AVURLAsset.init(url: getFileURL(), options: nil)
@@ -76,14 +124,17 @@ class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
             }
             break
         case .ended:
+            self.view.makeToast("Recording Stopped", duration: 1.0, position: .bottom)
             if audioRecorder != nil {
                 finishRecording(success: true)
                 let indexCategory = myAffirmationArray[indexPath.row]
+                self.view.makeToast("Start saving song", duration: 1.0, position: .bottom)
+                
                 PostMySongList(Title: (indexCategory as AnyObject).value(forKey: "songs_title") as! String,cat_id: "\((indexCategory as AnyObject).value(forKey: "cat_id") as! NSNumber)",songID: "\((indexCategory as AnyObject).value(forKey: "id") as! NSNumber)")
             }
             break
         default: break
-    }
+        }
     }
     
     private func cleanup() {
@@ -174,16 +225,32 @@ class MyAffirmationsViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     @objc func updateProgressBar(timer: Timer){
-        let totalTimeString:String?
+        let _:String?
         //if audioRecorder!.isRecording && Int(audioRecorder.currentTime) <= 59
         if audioRecorder!.isRecording && Int(audioRecorder.currentTime) <= 59
         {
             audioRecorder!.updateMeters()
         }else{
             finishRecording(success: true)
-           // PostMySongList()
+            // PostMySongList()
         }
     }
+    
+    @IBAction func recordTapBtn(_ sender: UIButton) {
+        print(sender.tag)
+        let indexCategory = myAffirmationArray[sender.tag]
+        if (indexCategory as AnyObject).value(forKey: "upload_status") as! NSNumber == 1{
+            let GotoAffirmation = self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+            
+            GotoAffirmation.titleName = self.affirmationName.text!
+            GotoAffirmation.subTitle = (indexCategory as AnyObject).value(forKey: "songs_title") as! String
+            GotoAffirmation.uploadRecordingUrl = (indexCategory as AnyObject).value(forKey: "songs") as! String
+            GotoAffirmation.isComesFrom = "MyAffirmation"
+            self.navigationController?.pushViewController(GotoAffirmation, animated: true)
+        }
+    }
+    
+    
 }
 
 
@@ -194,13 +261,15 @@ extension MyAffirmationsViewController : UITableViewDelegate,UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         cell = tableView.dequeueReusableCell(withIdentifier: "AffirmationTableCell", for: indexPath) as! AffirmationTableCell
+        cell.recordBtn.delegate = self
+        cell.recordBtn.tag = indexPath.row
         let indexCategory = myAffirmationArray[indexPath.row]
         if let txt = (indexCategory as AnyObject).value(forKey: "songs_title") as? String {
             cell.recordText.text = txt
         }
         if let imageString = (indexCategory as AnyObject).value(forKey: "image") as? String {
             if URL(string: (imageString) ) != nil {
-                cell.BackImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
+                cell.BackImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:nil)
             }
         }
         if let title = (indexCategory as AnyObject).value(forKey: "songs_title") as? String {
@@ -209,13 +278,13 @@ extension MyAffirmationsViewController : UITableViewDelegate,UITableViewDataSour
         if let id = (indexCategory as AnyObject).value(forKey: "id") as? Int {
             musicIdArryForRecording.append(id)
         }
-        if let favouriteStatus = (indexCategory as AnyObject).value(forKey: "favrite_status") as? Int {
-            if favouriteStatus == 0 {
-                cell.favStatusImageView.image = UIImage(named: "unfavGrey")
-            }else {
-                cell.favStatusImageView.image = UIImage(named: "Myfav")
-            }
-        }
+//        if let favouriteStatus = (indexCategory as AnyObject).value(forKey: "favrite_status") as? Int {
+//            if favouriteStatus == 0 {
+//                cell.favStatusImageView.image = UIImage(named: "unfavGrey")
+//            }else {
+//                cell.favStatusImageView.image = UIImage(named: "Myfav")
+//            }
+//        }
         cell.favStatus.tag = indexPath.row
         cell.favStatus.addTarget(self, action: #selector(AddToFavourite(_:)), for: .touchUpInside)
         
@@ -226,49 +295,13 @@ extension MyAffirmationsViewController : UITableViewDelegate,UITableViewDataSour
                 //cell.RecordTap.addGestureRecognizer(self.longPressGesture())
             }
         }
-        
-        //        if indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 5{
-        //            cell.favStatus.setImage(#imageLiteral(resourceName: "fav"), for: .normal)
-        //        }
-        //        else{
-        //            cell.favStatus.setImage(#imageLiteral(resourceName: "unfavGrey"), for: .normal)
-        //        }
-        //        if indexPath.row == 5{
-        //           cell.RecordTap.setImage(#imageLiteral(resourceName: "PinkTap"), for: .normal)
-        //        }
-        //        else{
-        //           cell.RecordTap.setImage(#imageLiteral(resourceName: "GreenTap"), for: .normal)
-        //        }
-        //        if affirmationBased == "0"{
-        //            cell.BackImage.image = #imageLiteral(resourceName: "WMainImage")
-        //          }
-        //        else if affirmationBased == "1"{
-        //            cell.BackImage.image = #imageLiteral(resourceName: "PNameImage")
-        //
-        //        }
-        //        else if affirmationBased == "2"{
-        //            cell.BackImage.image = UIImage(named: "SMainImage")
-        //
-        //        }
-        //        else if affirmationBased == "3"{
-        //            cell.BackImage.image = UIImage(named: "RMainImage")
-        //
-        //        }
-        //        else if affirmationBased == "4"{
-        //            cell.BackImage.image = #imageLiteral(resourceName: "RRecording")
-        //
-        //        }
-        //        else if affirmationBased == "5"{
-        //            cell.BackImage.image = UIImage(named: "HMainImage")
-        //         }
-        //        else if affirmationBased == "6"{
-        //           cell.BackImage.image = #imageLiteral(resourceName: "SMainImage")
-        //
-        //        }
-        
+       
+        cell.RecordTap.tag = indexPath.row
         return cell
     }
-   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
@@ -290,50 +323,47 @@ extension MyAffirmationsViewController : UITableViewDelegate,UITableViewDataSour
             }
         }
         
-        if let favouriteStatus = (indexCategory as AnyObject).value(forKey: "favrite_status") as? Int {
-        if favouriteStatus == 0 {
-            favKey = 1
-            AddToFavouriteApi(favStatus: "\(favKey)", Title: (indexCategory as AnyObject).value(forKey: "songs_title") as! String,cat_id: "\((indexCategory as AnyObject).value(forKey: "cat_id") as! NSNumber)",songID: "\((indexCategory as AnyObject).value(forKey: "id") as! NSNumber)")
-        }else {
-            favKey = 0
-            AddToFavouriteApi(favStatus: "\(favKey)", Title: (indexCategory as AnyObject).value(forKey: "songs_title") as! String,cat_id: "\((indexCategory as AnyObject).value(forKey: "cat_id") as! NSNumber)",songID: "\((indexCategory as AnyObject).value(forKey: "id") as! NSNumber)")
-            
-            }
-        }
+        self.DeleteApi(songID: "\((indexCategory as AnyObject).value(forKey: "id") as! NSNumber)")
+        
+ 
         
         
     }
+    
+   
 }
 extension MyAffirmationsViewController{
     
     //MARK:- GetRecordingsList API
     func GetRecordingsList(){
         self.showProgress()
-        let userID = UserDefaults.standard.value(forKey: "UserID")
-        let parameter : [String : Any] = ["user_id": userID as Any,
-                                          "cat_id": "\(catg_Id)"]
+        let userID = UserDefaults.standard.value(forKey: "UserID") as! String
+        let parameter : [String : Any] = ["user_id": userID,
+                                          "cat_id": catg_Id]
         print(parameter)
         networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.MySongsList.caseValue, parameter: parameter) { (response) in
             print(response)
             self.hideProgress()
             let dic = response as! NSDictionary
+            self.myAffirmationArray = NSArray()
             if dic.value(forKey: "success") as!Bool == true{
                 if let data = dic.value(forKey: "data") as? NSArray {
-                    self.myAffirmationArray = data.reversed() as NSArray
+                    self.myAffirmationArray = data as NSArray
                 }
-                self.AffermationTableView.dataSource = self
-                self.AffermationTableView.delegate = self
-                self.AffermationTableView.reloadData()
+              
             }
             else{
-                self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+               // self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
             }
+            self.AffermationTableView.dataSource = self
+            self.AffermationTableView.delegate = self
+            self.AffermationTableView.reloadData()
         }
         
     }
     //MARK:- AddToFavourite
     func AddToFavouriteApi(favStatus:String,Title:String,cat_id:String,songID:String){
-        self.showProgress()
+       // self.showProgress()
                    let userID = UserDefaults.standard.value(forKey: "UserID")
         let parameter : [String : Any] = ["user_id": userID! as Any,
                                           "songs_title": Title,
@@ -354,8 +384,25 @@ extension MyAffirmationsViewController{
                    }
     }
     
+    func DeleteApi(songID:String){
+      // self.showProgress()
+                   let userID = UserDefaults.standard.value(forKey: "UserID") as! String
+        let parameter : [String : Any] = ["user_id": userID,                                          "recording_id":songID]
+                   print(parameter)
+                   networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.deleteRecording.caseValue, parameter: parameter) {(response) in
+                       print(response)
+                       self.hideProgress()
+                       let dic = response as! NSDictionary
+                       if dic.value(forKey: "success") as? Bool == true {
+                           self.GetRecordingsList()
+                       }
+                       else {
+                           self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+                       }
+                   }
+    }
     func postSongTitle(){
-            self.showProgress()
+           // self.showProgress()
             let userID = UserDefaults.standard.value(forKey: "UserID")
             let parameter : [String : Any] = ["user_id": userID! as Any,
                                               "songs_title": "\(AffirmationTF.text!)",
@@ -385,18 +432,21 @@ extension MyAffirmationsViewController{
     //MARK:- PostSong Api
     func PostMySongList(Title:String,cat_id:String,songID:String){
         if isAudioPresent {
-            self.showProgress()
+            //self.showProgress()
             let userID = UserDefaults.standard.value(forKey: "UserID") as! String
             let parameter : [String : String] = ["user_id": userID,
                                               "songs_title": Title,
                                               "cat_id":"\(cat_id)",
-                                              "songs_id":"",
+                                              "songs_id":songID,
                                               "songs_images" : "",
                                               "songs_description" : ""
             ]
             print(parameter)
-            uploadDocuments(urlString: "https://meditation.customer-devreview.com/api/collections/postMySongs", params: parameter, documentUrl: musicUrl as URL, success: { (response) in
+            uploadDocuments(urlString: "https://mayorkoch.com/api/collections/postMySongs", params: parameter, documentUrl: musicUrl as URL, success: { (response) in
                 print(response)
+                self.view.makeToast("Affirmation recording saved", duration: 1.0, position: .bottom)
+                self.hideProgress()
+                self.GetRecordingsList()
             }) { (Error) in
                 print(Error)
             }
@@ -417,14 +467,14 @@ extension MyAffirmationsViewController{
 //                }
 //            }
         }else{
-            self.showProgress()
+            //self.showProgress()
             let userID = UserDefaults.standard.value(forKey: "UserID")
             let parameter : [String : Any] = ["user_id": userID! as Any,
                                               "songs_title": "\(AffirmationTF.text!)",
                 "songs":"",
                 "songs_images":"",
                 "songs_description":"",
-                "cat_id":"\(catg_Id)"
+                "cat_id":cat_id
             ]
             print(parameter)
             networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.PostMySongList.caseValue, parameter: parameter) { (response) in

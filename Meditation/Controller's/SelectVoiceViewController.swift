@@ -37,7 +37,7 @@ class SelectVoiceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getvoiceList() // API Call
-    self.upperview.initGradientView(view: self.upperview, colour1: darkSkyBlue_Colour, colour2: Green_Colour)
+        self.upperview.initGradientView(view: self.upperview, colour1: darkSkyBlue_Colour, colour2: Green_Colour)
         
         //show date picker
         showDatePicker()
@@ -120,10 +120,14 @@ extension SelectVoiceViewController : UITableViewDelegate,UITableViewDataSource{
             let profileimage = URL(string: "\(voiceDict.value(forKey: "image") as! String)")
             cell.UserImage.sd_setImage(with: profileimage, placeholderImage: #imageLiteral(resourceName: "name"))
         }
-        if let flagimage = voiceDict.value(forKey: "flag") as? String{
-            let profileimage = URL(string: flagimage)
-            cell.UserImage.sd_setImage(with: profileimage, placeholderImage: #imageLiteral(resourceName: "name"))
-        }
+        
+        cell.UserImage.layer.cornerRadius = cell.UserImage.frame.size.height / 2
+        cell.UserImage.clipsToBounds = true
+        
+//        if let flagimage = voiceDict.value(forKey: "flag") as? String{
+//            let profileimage = URL(string: flagimage)
+//            cell.UserImage.sd_setImage(with: profileimage, placeholderImage: #imageLiteral(resourceName: "name"))
+//        }
         self.mySongString = voiceDict.value(forKey: "voices") as! String
       
         if selectCell == indexPath.row{
@@ -211,7 +215,7 @@ extension SelectVoiceViewController{
     
     //MARK:- Get Voice list
     func getvoiceList(){
-        self.showProgress()
+       // self.showProgress()
         networkServices.shared.postDatawithoutHeaderWithoutParameter(methodName: methodName.UserCase.getVoiceList.caseValue) { (response) in
             print(response)
             self.hideProgress()
@@ -226,7 +230,7 @@ extension SelectVoiceViewController{
    
     //MARK:-  post Voice and user Details
     func postSelectVoice(){
-        self.showProgress()
+       // self.showProgress()
         let userID = UserDefaults.standard.value(forKey: "UserID")
         let parameter : [String : Any] = ["voice_id":  self.selectedVoiceId,
                                           "user_time": textTimePicker.text!,

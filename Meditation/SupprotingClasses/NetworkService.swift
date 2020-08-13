@@ -20,8 +20,8 @@ class networkServices{
             case .success(_):
                 if let data = response.result.value
                 {
-                    print(response.result.value as Any)
-                    print(data)
+//                    print(response.result.value as Any)
+//                    print(data)
                     DispatchQueue.main.async {
                         completion(data)}
                 }

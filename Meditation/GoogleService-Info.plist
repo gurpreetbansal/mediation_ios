@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>821568034663-0o4alf0u1td2isv62vg1dm6h4mrunb3e.apps.googleusercontent.com</string>
+	<string>1044371968440-a6p7duf1esnn2697pqc5rhcghtg6cjh9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.821568034663-0o4alf0u1td2isv62vg1dm6h4mrunb3e</string>
+	<string>com.googleusercontent.apps.1044371968440-a6p7duf1esnn2697pqc5rhcghtg6cjh9</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1044371968440-3hsd7b5lulc9t2e99uq0183bu6mijfko.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCZ5ChqHUIxsPhmvbUTItyu26_8omodM40</string>
+	<string>AIzaSyBAPKO_IioXX4vPrxdP7UJKZv8fqfoDFwY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>821568034663</string>
+	<string>1044371968440</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.dev.meditation</string>
+	<string>com.live.selfpause</string>
 	<key>PROJECT_ID</key>
-	<string>meditation-a936f</string>
+	<string>selfpause-10e5a</string>
 	<key>STORAGE_BUCKET</key>
-	<string>meditation-a936f.appspot.com</string>
+	<string>selfpause-10e5a.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:821568034663:ios:e98c88f935d845b0fbc1c2</string>
+	<string>1:1044371968440:ios:45861cfa7e5b49362abf4d</string>
 	<key>DATABASE_URL</key>
-	<string>https://meditation-a936f.firebaseio.com</string>
+	<string>https://selfpause-10e5a.firebaseio.com</string>
 </dict>
 </plist>

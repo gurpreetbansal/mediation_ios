@@ -5,195 +5,95 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "81F1D858-B215-4436-AE93-46F98348DCFB"
+            uuid = "98687A16-BA28-44FB-A2FC-3B365C3C40ED"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meditation/Controller&apos;s/MyAffirmationsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            breakpointStackSelectionBehavior = "1"
+            scope = "1"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C3328A1A-D98B-4AAB-AAAD-AD4278D4C7A8"
-            shouldBeEnabled = "Yes"
+            uuid = "776DD681-F519-4E7F-A536-BE162DA8252D"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meditation/SupprotingClasses/NetworkService.swift"
+            filePath = "Meditation/Controller&apos;s/SessionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "uploadAudio(methodName:audioData:name:appendParam:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C3328A1A-D98B-4AAB-AAAD-AD4278D4C7A8 - 15d2db8130b3060b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; () in closure #2 (Alamofire.SessionManager.MultipartFormDataEncodingResult) -&gt; () in Selfpause.networkServices.uploadAudio(methodName: Swift.String, audioData: Swift.Optional&lt;Foundation.Data&gt;, name: Swift.String, appendParam: Swift.Dictionary&lt;Swift.String, Swift.String&gt;, completion: (Any) -&gt; ()) -&gt; ()"
-                  moduleName = "Selfpause"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pankajrana/Documents/GitHub/mediation_ios/Meditation/SupprotingClasses/NetworkService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "61"
-                  endingLineNumber = "61"
-                  offsetFromSymbolStart = "136">
-               </Location>
-               <Location
-                  uuid = "C3328A1A-D98B-4AAB-AAAD-AD4278D4C7A8 - d1c6cf072dcc02a1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Swift.String&gt;) -&gt; () in closure #2 () -&gt; () in closure #2 (Alamofire.SessionManager.MultipartFormDataEncodingResult) -&gt; () in Selfpause.networkServices.uploadAudio(methodName: Swift.String, audioData: Swift.Optional&lt;Foundation.Data&gt;, name: Swift.String, appendParam: Swift.Dictionary&lt;Swift.String, Swift.String&gt;, completion: (Any) -&gt; ()) -&gt; ()"
-                  moduleName = "Selfpause"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pankajrana/Documents/GitHub/mediation_ios/Meditation/SupprotingClasses/NetworkService.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "112">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6FAFB483-65F4-4262-B92B-91F6333035D8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meditation/SupprotingClasses/NetworkService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "uploadAudio(methodName:audioData:name:appendParam:completion:)"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
+            landmarkName = "GetAffirmationData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F088CB75-6C81-4464-926A-DC35F7DDC452"
-            shouldBeEnabled = "Yes"
+            uuid = "75BAF1AA-F685-4EFE-A743-0CB2EE8DC63E"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meditation/Controller&apos;s/MyAffirmationsViewController.swift"
+            filePath = "Meditation/Controller&apos;s/MusicPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "GetMusicData()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "42CB9E12-4CC5-4F37-A9A3-CD889A170905"
+            uuid = "C8D53579-8446-411A-9BDA-E7C8FEA3FFAB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Meditation/Controller&apos;s/MyAffirmationsViewController.swift"
+            filePath = "Meditation/Controller&apos;s/MusicPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "playSongs_inQueue()"
+            landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "42CB9E12-4CC5-4F37-A9A3-CD889A170905 - c92c2910bf8c8eee"
+                  uuid = "C8D53579-8446-411A-9BDA-E7C8FEA3FFAB - 24f1737af17cb84e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Selfpause.MyAffirmationsViewController.PostMySongList(Title: Swift.String, cat_id: Swift.String, songID: Swift.String) -&gt; ()"
+                  symbolName = "Selfpause.MusicPlayerViewController.playSongs_inQueue() -&gt; ()"
                   moduleName = "Selfpause"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pankajrana/Documents/GitHub/mediation_ios/Meditation/Controller&apos;s/MyAffirmationsViewController.swift"
+                  urlString = "file:///Users/pankajrana/Documents/GitHub/mediation_ios/Meditation/Controller&apos;s/MusicPlayerViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "398"
-                  endingLineNumber = "398"
-                  offsetFromSymbolStart = "1708">
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "920">
                </Location>
                <Location
-                  uuid = "42CB9E12-4CC5-4F37-A9A3-CD889A170905 - 8ce9b4c19a1e6d92"
+                  uuid = "C8D53579-8446-411A-9BDA-E7C8FEA3FFAB - 24f1737af17cb84e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.NSDictionary) -&gt; () in Selfpause.MyAffirmationsViewController.PostMySongList(Title: Swift.String, cat_id: Swift.String, songID: Swift.String) -&gt; ()"
+                  symbolName = "Selfpause.MusicPlayerViewController.playSongs_inQueue() -&gt; ()"
                   moduleName = "Selfpause"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pankajrana/Documents/GitHub/mediation_ios/Meditation/Controller&apos;s/MyAffirmationsViewController.swift"
+                  urlString = "file:///Users/pankajrana/Documents/GitHub/mediation_ios/Meditation/Controller&apos;s/MusicPlayerViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "399"
-                  endingLineNumber = "399"
-                  offsetFromSymbolStart = "48">
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "2408">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "979C83C4-8434-4261-B8C5-97731B0E6D63"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meditation/Controller&apos;s/LibraryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4300EBDC-ECF7-4334-AD51-BD7FE5A65065"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meditation/Controller&apos;s/LibraryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CEBE031C-F369-47F0-AF76-9774F23437B1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Meditation/Controller&apos;s/LibraryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "unknown"
-            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

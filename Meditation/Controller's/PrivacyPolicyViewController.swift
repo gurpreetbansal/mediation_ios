@@ -10,23 +10,18 @@ import UIKit
 import WebKit
 
 class PrivacyPolicyViewController: UIViewController {
-    
     @IBOutlet var privacylbl: UIButton!
     @IBOutlet var webView: WKWebView!
-    
-    
     
     var privacyStatus = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         if privacyStatus == "Privacy"{
             privacylbl.setTitle("Privacy Policy", for: .normal)
             let url = URL(string: "https://selfpause.com/privacy-policy/")!
             webView.load(URLRequest(url: url))
             webView.allowsBackForwardNavigationGestures = true
-        }
-        else{
+        }else{
             privacylbl.setTitle("Terms & Conditions", for: .normal)
             let url = URL(string: "https://selfpause.com/terms-conditions/")!
             webView.load(URLRequest(url: url))
@@ -34,8 +29,6 @@ class PrivacyPolicyViewController: UIViewController {
         }
         // Do any additional setup after loading the view.
     }
-    
-    
     @IBAction func BackBtnTap(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

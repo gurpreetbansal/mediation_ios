@@ -13,17 +13,39 @@ import GoogleSignIn
 import FBSDKCoreKit
 import AVFoundation
 import Firebase
-
+import FirebaseMessaging
+import FirebaseInstanceID
+import Braintree
+import UserNotifications
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
-
+    func registerForPushNotifications() {
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            // For iOS 10 data message (sent via FCM)
+            Messaging.messaging().delegate = self
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+        }
+        UIApplication.shared.registerForRemoteNotifications()
+       
+    }
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
+        BTAppSwitch.setReturnURLScheme("com.dev.meditation.payments")
         // Get the singleton instance.
         let audioSession = AVAudioSession.sharedInstance()
         do {
@@ -35,16 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //For iqkeyboard
         IQKeyboardManager.shared.enable = true
-        
+        FirebaseApp.configure()
         // for device token
-        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.alert,UIUserNotificationType.badge, UIUserNotificationType.sound]
-           let pushNotificationSettings = UIUserNotificationSettings(types: notificationTypes, categories: nil)
-
-           application.registerUserNotificationSettings(pushNotificationSettings)
-           application.registerForRemoteNotifications()
+        registerForPushNotifications()
         
         // ==============Initialize Google sign-in==================
-               GIDSignIn.sharedInstance().clientID = "486457762139-492ckiflhu4bk5beudbioh4ln6lchuv4.apps.googleusercontent.com"
+               GIDSignIn.sharedInstance().clientID = "1044371968440-ccnht2ushq5kml2o5rgi3i28egro1iop.apps.googleusercontent.com"
                
        // ==============Initialize facebook sign-in==================
                ApplicationDelegate.shared.application(application,
@@ -52,28 +70,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // ==============Firebase configure==================
         
-        FirebaseApp.configure()
+    
         
         return true
     }
     
-   // Getting device token
-
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-
-        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print(token)
-        UserDefaults.standard.set(String(token), forKey: "DeviceToken")
-        UserDefaults.standard.synchronize()
-    }
-    //In case of error
-
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        UserDefaults.standard.set("12952929265256561561561361261162", forKey: "DeviceToken")
-        UserDefaults.standard.synchronize()
-        print("i am not available in simulator :( \(error)")
-    }
-
+   
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -145,16 +147,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Google signIN delegate method
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if (url.scheme!.isEqual("fb233959547770702"))
-        {
+        if (url.scheme!.isEqual("fb233959547770702")){
             return
                 (ApplicationDelegate.shared.application( app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: [:]))
-        }
-        else{
+        }else if (url.scheme!.isEqual("com.googleusercontent.apps.1044371968440-ccnht2ushq5kml2o5rgi3i28egro1iop")){
             return
                 GIDSignIn.sharedInstance().handle(url)
+        }else if url.scheme?.localizedCaseInsensitiveCompare("com.dev.meditation.payments") == .orderedSame {
+                return BTAppSwitch.handleOpen(url, options: options)
+            }
+        return false
+        }
+    
+    
+    //MARK: - UIApplicationDelegate Methods
+    // This method will be called when app received push notifications in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler([.alert,.sound,.badge])
     }
+    
+    // Handle notification messages after display notification is tapped by the user.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void){
+        
+        print("User Info = ",response.notification.request.content.userInfo)
+        //        window?.rootViewController?.childViewControllers.last?.navigationController?.viewControllers.last?.dismiss(animated: false, completion: nil)
+        
+        //        let story = UIStoryboard.init(name: "Main" , bundle: nil)
+        //        let noti_dict = response.notification.request.content.userInfo as NSDictionary
+        //        print(noti_dict)
+        //        if noti_dict.value(forKeyPath: "payload.noti_type") as! String == "apply_job"{
+        //            let centerViewController = story.instantiateViewController(withIdentifier: "JobBoardViewController") as! JobBoardViewController
+        //            let centnav = UINavigationController(rootViewController:centerViewController)
+        //            centerContainer.centerViewController = centnav
+        //
+        //            let vc = story.instantiateViewController(withIdentifier: "JobBoardViewController") as! JobBoardViewController
+        //            centerViewController.navigationController?.pushViewController(vc, animated: false)
+        //        }
+        
+        
     }
-
+    // The callback to handle data message received via FCM for devices running iOS 10 or above
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        var token = ""
+        for i in 0...deviceToken.count-1 {
+            token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
+        }
+        print("DEVICE TOKEN = \(deviceToken)")
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        print(deviceTokenString)
+        UserDefaults.standard.set(token, forKey: "DEVICETOKEN");
+        UserDefaults.standard.synchronize();
+        // UpdateLocation.upadteDeviceToke(token: token)
+        // Define identifier
+        let notificationName = Notification.Name("DEVICETOKEN_NOTI")
+        // Post notification
+        NotificationCenter.default.post(name: notificationName, object: nil)
+        
+        // Get FCM Token
+        InstanceID.instanceID().instanceID(handler: { (result, error) in
+            if let error = error {
+                print("Error fetching remote instange ID: \(error)")
+            } else if let result = result {
+                print("Remote instance ID token: \(result.token)")
+                SingletonClass.sharedInstance.FCMToken = "\(result.token)"
+                UserDefaults.standard.set("\(result.token)", forKey: "DeviceToken");
+                UserDefaults.standard.synchronize();
+                
+            }
+        })
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // Define identifier
+        let notificationName = Notification.Name("DEVICETOKEN_NOTI")
+        // Post notification
+        UserDefaults.standard.set("123456789032424424242444242", forKey: "DeviceToken")
+        UserDefaults.standard.synchronize()
+        SingletonClass.sharedInstance.FCMToken = "1231231231231231231231"
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print(fcmToken)
+        SingletonClass.sharedInstance.FCMToken = "\(fcmToken)"
+        UserDefaults.standard.set("\(fcmToken)", forKey: "DeviceToken");
+        UserDefaults.standard.synchronize();
+    }
 }
 

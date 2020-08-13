@@ -230,7 +230,7 @@ extension AccountSettingViewController{
     
     //MARK:- GetProfile API
     func Getprofile(){
-        self.showProgress()
+       // self.showProgress()
         let userID = UserDefaults.standard.value(forKey: "UserID")
         let parameter : [String:Any] = ["user_id":userID as Any]
         networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.getProfile.caseValue, parameter: parameter) { (response) in
@@ -266,8 +266,8 @@ extension AccountSettingViewController{
     //Uploadimage API
     func uploadimage(){
         
-        myOldPassword = UserDefaults.standard.value(forKey: "oldpassword") as! String
-        self.showProgress()
+        //myOldPassword = UserDefaults.standard.value(forKey: "oldpassword") as! String
+       // self.showProgress()
         var image = MyImage
         let userID = UserDefaults.standard.value(forKey: "UserID")
         let parameter : [String:Any] = [
@@ -295,7 +295,7 @@ extension AccountSettingViewController{
             self.hideProgress()
             if response.value(forKey: "success") as! Bool == true{
                 // Show alert View
-                let alertController = UIAlertController(title: "Meditation", message: "Profile updated successfully", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Selfpause", message: (response.value(forKey: "messages") as! String), preferredStyle: .alert)
                 let acceptAction = UIAlertAction(title: "OK", style: .default) { (_) -> Void in
                     self.Getprofile()
                     self.initFunction()

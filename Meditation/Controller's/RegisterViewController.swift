@@ -7,9 +7,11 @@
 //
 
 import UIKit
-
+import AuthenticationServices
+import Security
+@available(iOS 13.0, *)
 class RegisterViewController: UIViewController {
-
+    @IBOutlet weak var appleView: DesignableView!
     @IBOutlet var emailView: DesignableView!
     @IBOutlet var firstNameView: DesignableView!
     @IBOutlet var View1: DesignableView!
@@ -20,8 +22,9 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         //checkNotification()
          initFunction()
+       // setUpSignInAppleButton()
      }
     
     func initFunction(){
@@ -33,7 +36,35 @@ class RegisterViewController: UIViewController {
         emailView.NewdropShadow()
         passwordView.NewdropShadow()
     }
-
+    //MARK:- Setup apple id button
+    func setUpSignInAppleButton() {
+       let authorizationButton = ASAuthorizationAppleIDButton()
+       authorizationButton.addTarget(self, action: #selector(handleLogInWithAppleID), for: .touchUpInside)
+       self.appleView.addSubview(authorizationButton)
+        
+        authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+//        let screenSize = UIScreen.main.bounds
+//        let screenHeight = screenSize.height
+           NSLayoutConstraint.activate([
+           authorizationButton.centerXAnchor.constraint(equalTo: self.appleView.centerXAnchor),
+           authorizationButton.centerYAnchor.constraint(equalTo: self.appleView.centerYAnchor),
+           authorizationButton.widthAnchor.constraint(equalTo: self.appleView.widthAnchor),
+           authorizationButton.heightAnchor.constraint(equalTo: self.appleView.heightAnchor)
+           ])
+        
+        
+        
+    }
+    @objc func handleLogInWithAppleID() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
     @IBAction func loginTap(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -76,11 +107,11 @@ class RegisterViewController: UIViewController {
 
 //MARK:- API Extension
 
+@available(iOS 13.0, *)
 extension RegisterViewController{
     
     func RegisterData(){
          self.showProgress()
-            let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")
         UserDefaults.standard.set(PasswordTF.text!, forKey: "oldpassword")
         let parameter : [String : Any] = ["first_name":firstNameTF.text!,
                              "last_name":"",
@@ -92,7 +123,7 @@ extension RegisterViewController{
                              "social_id":"",
                              "social_type":"",
                              "device_type":"ios",
-                             "device_token":DeviceToken as Any
+                             "device_token": "\(UserDefaults.standard.string(forKey: "DeviceToken") ?? "123131313121313131")"
         ]
             print(parameter)
             networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.userSignUP.caseValue, parameter: parameter ) { (response) in
@@ -114,3 +145,88 @@ extension RegisterViewController{
 }
 
 
+//MARK:-Apple Id login
+@available(iOS 13.0, *)
+extension RegisterViewController:ASAuthorizationControllerDelegate{
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            
+            // Create an account in your system.
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName?.givenName
+            let email = appleIDCredential.email
+            UserDefaults.standard.set("\(userIdentifier)", forKey: "userIdentifier")
+            // For the purpose of this demo app, store the `userIdentifier` in the keychain.
+          
+            
+            // Check User is either Logged in with Apple Id or not ...
+            if email == nil{
+                let Alert = UIAlertController(title: "Alert", message: "It looks you didn't reset your existing account to Sign In again. Please follow these steps, open the Settings - tap your Account - Password & security - Apple ID logins. Find your application under Sign In with Apple and swipe to delete it.", preferredStyle: UIAlertController.Style.alert)
+                
+                Alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (action: UIAlertAction!) in
+                    print("Handle Ok logic here")
+                   guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                       return
+                   }
+
+                   if UIApplication.shared.canOpenURL(settingsUrl) {
+                       UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                           print("Settings opened: \(success)") // Prints true
+                       })
+                   }
+                }))
+                Alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (action: UIAlertAction!) in
+                    print("Handle Cancel Logic here")
+                    Alert .dismiss(animated: true, completion: nil)
+                }))
+                self.present(Alert, animated: true, completion: nil)
+                
+            }else{
+                self.signInApple(userEmail: email!, userToken: userIdentifier, full_name: fullName!)
+            }
+            
+            
+            
+            // For the purpose of this demo app, show the Apple ID credential information
+        
+        case let passwordCredential as ASPasswordCredential:
+        
+            // Sign in using an existing iCloud Keychain credential.
+            _ = passwordCredential.user
+            _ = passwordCredential.password
+            
+            // For the purpose of this demo app, show the password credential as an alert.
+            DispatchQueue.main.async {
+               // self.showPasswordCredentialAlert(username: username, password: password)
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    func signInApple(userEmail:String, userToken:String, full_name:String) {
+      //  let DeviceToken = UserDefaults.standard.string(forKey: "DeviceToken")!
+         let parameter = ["email":  userEmail,
+                          "first_name" : full_name,
+                          "profile" : "",
+                          "social_type" : "apple",
+                          "social_id" : userToken,
+                          "device_type" : "ios",
+                          "device_token" : "\(UserDefaults.standard.string(forKey: "DeviceToken") ?? "123131313121313131")"]
+       print(parameter)
+       //self.RegisterApi(APIparameter:parameter )
+
+    }
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("AppleID Credential failed with error: \(error.localizedDescription)")
+    }
+}
+@available(iOS 13.0, *)
+extension RegisterViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+}

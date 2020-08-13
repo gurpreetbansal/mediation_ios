@@ -30,11 +30,14 @@ class MyFavouriteViewController: UIViewController {
     @IBOutlet var favoriteTable: UITableView!
     
     var innerfavouriteCountArr = [Int]()
-    var innerCatArr = [Int]()
+    var innerCatArr = NSArray()
     var myFavouriteData = NSArray()
     var cell = MyFavouriteCategoryCell()
     var isCellSelected : Bool = false
     var selectedCell : Int = -1
+    private var dateCellExpanded: Bool = false
+    var selectedRowIndex: Int = -1
+    var playAllSongsArr = NSArray()
     override func viewDidLoad() {
         super.viewDidLoad()
         GetFavouriteData()
@@ -45,7 +48,12 @@ class MyFavouriteViewController: UIViewController {
     }
     
     @IBAction func PlayAllBtn(_ sender: Any) {
-        self.performPushSeguefromController(identifier: "MusicPlayerViewController")
+        if self.playAllSongsArr.count != 0{
+            let Goto = self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+            Goto.playAllSongs = self.playAllSongsArr
+            Goto.isComesFrom = "PlayAll"
+            self.navigationController?.pushViewController(Goto, animated: true)
+        }
     }
     @IBAction func backBtnTap(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -55,19 +63,16 @@ class MyFavouriteViewController: UIViewController {
 
 extension MyFavouriteViewController : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == favoriteTable {
+        if tableView.tag == 100 {
             return myFavouriteData.count
         }else{
-            var count = innerfavouriteCountArr[tableView.tag]
-            return count
+            return self.innerCatArr.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == favoriteTable{
+        if tableView.tag == 100{
             cell = favoriteTable.dequeueReusableCell(withIdentifier: "MyFavouriteCategoryCell", for: indexPath) as! MyFavouriteCategoryCell
-            //            cell.CategoryImage.image = HomeCategoryArray[indexPath.row]
-            //            cell.CategoryName.text = HomeCategoryName[indexPath.row]
             let indexCategory = myFavouriteData[indexPath.row]
             if let imageString = (indexCategory as AnyObject).value(forKey: "image") as? String {
                 if URL(string: (imageString) ) != nil {
@@ -77,36 +82,22 @@ extension MyFavouriteViewController : UITableViewDelegate,UITableViewDataSource{
             if let name = (indexCategory as AnyObject).value(forKey: "name") as? String {
                 cell.CategoryName.text = name
             }
-            if let count = (indexCategory as AnyObject).value(forKey: "count") as? Int {
-                if count != 0 {
-                    cell.MyFavouriteCategoryInsideTableView.dataSource = self
-                    cell.MyFavouriteCategoryInsideTableView.delegate = self
-                    cell.MyFavouriteCategoryInsideTableView.tag = indexPath.row
-                    cell.MyFavouriteCategoryInsideTableView.reloadData()
-                    cell.MyFavouriteCategoryInsideTableView.tableFooterView = UIView()
-                    if innerCatArr[indexPath.row] == 1{
-                        cell.myFavouriteInsideTableViewHeight.constant = cell.MyFavouriteCategoryInsideTableView.contentSize.height+10
-                        isCellSelected = false
-                    }else {
-                        cell.myFavouriteInsideTableViewHeight.constant = 0
-                    }
-                }
-            }
+             cell.setCategoryTableViewDataSourceDelegate(self, forRow: indexPath.row)
             return cell
         }else {
             if let insideCell = cell.MyFavouriteCategoryInsideTableView.dequeueReusableCell(withIdentifier: "MyFavouriteCategoryInsideCell", for: indexPath) as? MyFavouriteCategoryInsideCell{
-                let num = cell.MyFavouriteCategoryInsideTableView.tag
-                let indexDictionary = (myFavouriteData[num] as AnyObject)
-                let insideFavData = indexDictionary.value(forKey: "subCategory") as? NSArray
-                if insideFavData != [] {
-                if let status = (insideFavData![indexPath.row] as AnyObject).value(forKey: "favrite_status") as?Int {
-                if status == 0 {
-                    insideCell.favImageView.image = UIImage(named: "unfavGrey")
-                }else {
-                    insideCell.favImageView.image = UIImage(named: "Myfav")
-                }
+                if innerCatArr != [] {
+                    insideCell.categoryName.text = ((innerCatArr[indexPath.row] as AnyObject).value(forKey: "affirmation_title") as! String)
+                    
+                    if let status = (innerCatArr[indexPath.row] as AnyObject).value(forKey: "favourite_status") as? NSNumber {
+                        if status == 0 {
+                            insideCell.favImageView.image = UIImage(named: "unfavGrey")
+                        }else {
+                            insideCell.favImageView.image = UIImage(named: "Myfav")
+                        }
                     }
                 }
+              
                 
                 return insideCell
             }
@@ -115,57 +106,58 @@ extension MyFavouriteViewController : UITableViewDelegate,UITableViewDataSource{
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView == favoriteTable {
-            return UITableView.automaticDimension
+        if tableView.tag == 100 {
+            if indexPath.row == selectedRowIndex {
+                return CGFloat(self.innerCatArr.count * 90 + 50)
+            }else{
+                return 80
+            }
         }else{
-            return UITableView.automaticDimension
+            return 60
         }
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == favoriteTable{
-            selectedCell = indexPath.row
-            if innerCatArr[indexPath.row] == 0{
-                innerCatArr[indexPath.row] = 1
-                favoriteTable.reloadData()
-            }
-            else{
-                innerCatArr[indexPath.row] = 0
-                favoriteTable.reloadData()
-            }
+        if tableView.tag == 100{
+            selectedRowIndex = indexPath.row
+            self.innerCatArr = (self.myFavouriteData[indexPath.row] as AnyObject).value(forKey: "session") as! NSArray
+            favoriteTable.beginUpdates()
+            favoriteTable.endUpdates()
+            favoriteTable.reloadRows(at: [indexPath], with: .automatic)
+            
         }else {
-            self.performPushSeguefromController(identifier: "MusicPlayerViewController")
+             let indexAffirmation = self.innerCatArr[indexPath.row]
+            let GotoAffirmation = self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+            
+            GotoAffirmation.titleName = (indexAffirmation as AnyObject).value(forKey: "affirmation_title") as! String
+             GotoAffirmation.subTitle = (indexAffirmation as AnyObject).value(forKey: "affirmation_subtitle") as! String
+             GotoAffirmation.sessonId = "\((indexAffirmation as AnyObject).value(forKey: "id") as! NSNumber)"
+             SingletonClass.sharedInstance.isFav = "\((indexAffirmation as AnyObject).value(forKey: "favourite_status") as! NSNumber)"
+            GotoAffirmation.isComesFrom = "session"
+             self.navigationController?.pushViewController(GotoAffirmation, animated: true)
         }
-    }
+  }
+    
 }
 
 extension MyFavouriteViewController{
     func GetFavouriteData(){
-        self.showProgress()
+        // self.showProgress()
         let userID = UserDefaults.standard.value(forKey: "UserID")
         let parameter : [String : Any] = [
             //"user_id": 287,
-           "user_id": userID as Any,
+            "user_id": userID as Any,
         ]
         print(parameter)
         networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.MyFavouriteSongs.caseValue, parameter: parameter) { (response) in
             print(response)
             self.hideProgress()
             let dic = response as! NSDictionary
-            if dic.value(forKey: "success") as!Bool == true{
-                if let data = dic.value(forKey: "data") as? NSArray {
+            if dic.value(forKey: "success") as! Bool == true{
+                if let data = dic.value(forKeyPath: "data.categories") as? NSArray {
                     self.myFavouriteData = data
-                    self.innerCatArr = self.makeZeroArr(numCount:data as! [Any])
-               if data != [] {
-               for i in 0...(data.count-1){
-                   if let id = (data[i] as AnyObject).value(forKey: "count") as? Int {
-                    self.innerfavouriteCountArr.append(id)
-                }
-                }
-                }
-                }
-                print(self.innerfavouriteCountArr)
+                    self.playAllSongsArr = dic.value(forKeyPath: "data.playall") as! NSArray
                 self.favoriteTable.dataSource = self
                 self.favoriteTable.delegate = self
                 self.favoriteTable.reloadData()
@@ -177,13 +169,13 @@ extension MyFavouriteViewController{
         }
         
     }
-    //MARK:- Make Zero Arr
-    func makeZeroArr(numCount:[Any]) -> [Int] {
-        var uncheckedAr = [Int]()
-        for zero in numCount {
-            uncheckedAr.append(0)
-        }
-        print(uncheckedAr)
-        return uncheckedAr
+    
+}
+}
+extension MyFavouriteCategoryCell{
+    func setCategoryTableViewDataSourceDelegate<D:UITableViewDelegate & UITableViewDataSource>(_ dataSourceDelegate:D, forRow row: Int){
+        MyFavouriteCategoryInsideTableView.delegate = dataSourceDelegate
+        MyFavouriteCategoryInsideTableView.dataSource = dataSourceDelegate
+        MyFavouriteCategoryInsideTableView.reloadData()
     }
 }

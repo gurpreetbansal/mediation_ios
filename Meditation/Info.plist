@@ -29,16 +29,24 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.486457762139-492ckiflhu4bk5beudbioh4ln6lchuv4</string>
+				<string>com.googleusercontent.apps.1044371968440-ccnht2ushq5kml2o5rgi3i28egro1iop</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.dev.meditation.payments</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>233959547770702</string>
 	<key>FacebookDisplayName</key>
-	<string>Meditation</string>
+	<string>SelfPause</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -58,14 +66,19 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>For access Camera</string>
+	<string>SelfPause used to allow to access camera for upload profile pics.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>For accessing microphone</string>
+	<string>SelfPause used to allow to access microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>For access Photo Library</string>
+	<string>SelfPause used to allow to access Photo Library for upload profile pics. </string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>For access Photo Library</string>
+	<string>SelfPause used to allow to access Photo Library for upload profile pics. </string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -90,6 +103,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>kTCCServiceMediaLibrary</key>
-	<string>For music use</string>
+	<string>SelfPause used to allow to access for music.</string>
+    <key>UIUserInterfaceStyle</key>
+    <string>Light</string>
 </dict>
 </plist>

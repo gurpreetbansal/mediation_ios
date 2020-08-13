@@ -8,7 +8,7 @@
 
 import UIKit
 import Braintree
-
+import BraintreeDropIn
 class SoundNatureImageTableCell : UITableViewCell{
     @IBOutlet var natureCollectionView: UICollectionView!
 }
@@ -19,8 +19,19 @@ class SoundNatureCollectionCell : UICollectionViewCell{
     @IBOutlet var natureImageLock: UIImageView!
 }
 
-class SoundsViewController: UIViewController {
-
+class SoundsViewController: UIViewController, BTDropInViewControllerDelegate {
+    func drop(_ viewController: BTDropInViewController, didSucceedWithTokenization paymentMethodNonce: BTPaymentMethodNonce) {
+        
+    }
+    
+    func drop(inViewControllerDidCancel viewController: BTDropInViewController) {
+        
+    }
+    
+    var clientToken = ""
+    var package_type = ""
+    var payment_plan_id = ""
+    var payment_plan_name = ""
     var songId = Int()
     var songName = String()
     var isMusic = Bool()
@@ -30,7 +41,7 @@ class SoundsViewController: UIViewController {
     
     @IBOutlet var upperview: UIView!
     @IBOutlet weak var PromoCodeView: UIView!
-    
+    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     @IBOutlet var SoundTableView: UITableView!
     var SoundType = ""
     override func viewDidLoad() {
@@ -39,6 +50,7 @@ class SoundsViewController: UIViewController {
         PromoCodeView.isHidden = true
          self.upperview.initGradientView(view: self.upperview, colour1: darkSkyBlue_Colour, colour2: Green_Colour)
         GetSoundData()
+        fetchClientToken()
         // Do any additional setup after loading the view.
     }
     func initfunc(){
@@ -57,94 +69,100 @@ class SoundsViewController: UIViewController {
            self.PromoCodeView.isHidden = true
        }
        
-    func fetchClientToken() {
-        self.showProgress()
-        networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.TokenGenerate.caseValue, parameter: [:]) { (response) in
+     func fetchClientToken() {
+          // self.showProgress()
+            let userID = UserDefaults.standard.value(forKey: "UserID") as! String
+           networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.TokenGenerate.caseValue, parameter: ["id":userID]) { (response) in
+               print(response)
+               self.hideProgress()
+               let dic = response as! NSDictionary
+               if dic.value(forKey: "success") as!Bool == true{
+                   if let data = dic.value(forKey: "data") as? NSDictionary {
+                       if let token = data.value(forKey: "client_token") as? String {
+                           self.clientToken = token
+                           
+                       }
+                   }
+               }
+               else{
+                   self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
+               }
+           }
+       }
+    @IBAction func PayMonthly(_ sender: Any) {
+        self.package_type = "1"
+        SetDropInPayment(amt:"7.99")
+    }
+    
+    @IBAction func PayYearly(_ sender: Any) {
+        self.package_type = "2"
+        SetDropInPayment(amt:"150")
+    }
+    func SetDropInPayment(amt:String){
+        let request =  BTDropInRequest()
+        let dropIn = BTDropInController(authorization: self.clientToken, request: request)
+        {
+         [unowned self] (controller, result, error) in
+            
+            if let error = error {
+                self.show(message: error.localizedDescription)
+                
+            } else if (result?.isCancelled == true) {
+                self.show(message: "Transaction Cancelled")
+                
+            } else if let nonce = result?.paymentMethod?.nonce{
+                self.sendRequestPaymentToServer(nonce: nonce,amount:amt)
+            }
+            controller.dismiss(animated: true, completion: nil)
+        }
+        
+        self.present(dropIn!, animated: true, completion: nil)
+    }
+    func show(message: String) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: message, message: "", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    func sendRequestPaymentToServer(nonce: String,amount: String) {
+        print(nonce)
+        //self.showProgress()
+        print(Date.getCurrentDate())
+        let userID = UserDefaults.standard.value(forKey: "UserID") as! String
+        let parameter : [String : String] = ["users_id":userID,
+                                             "amount":amount,
+                                             "payment_date":Date.getCurrentDate(),
+                                             "payment_plan_id":self.payment_plan_id,
+                                             "payment_plan_name":self.payment_plan_name,
+                                             "package_type":self.package_type,
+                                             "nonce":nonce,
+                                             "screenName": "2"
+                                            ]
+            
+        print(parameter)
+        networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.Payment.caseValue, parameter: parameter) { (response) in
             print(response)
             self.hideProgress()
             let dic = response as! NSDictionary
             if dic.value(forKey: "success") as!Bool == true{
-             if let data = dic.value(forKey: "data") as? NSDictionary {
-             if let token = data.value(forKey: "clientToken") as? String {
-                 self.toKinizationKey = token
+                 self.PromoCodeView.isHidden = true
                 
-             }
+                DispatchQueue.main.async {
+                    let alertController = UIAlertController(title: "Success" , message: (dic.value(forKey: "messages") as! String), preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {(alert: UIAlertAction!) in
+                       self.GetSoundData()
+                    }))
+                    self.present(alertController, animated: true, completion: nil)
                 }
-                        }
-                        else{
-                            self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
-                        }
-        }
-    }
-    @IBAction func PayMonthly(_ sender: Any) {
-       // SetDropInPayment(amt:"7.99",planType:"1")
-    }
-    
-    @IBAction func PayYearly(_ sender: Any) {
-       // SetDropInPayment(amt:"150",planType:"2")
-    }
-//    func SetDropInPayment(amt:String,planType:String){
-//         let request =  BTDropInRequest()
-//         let dropIn = BTDropInController(authorization: toKinizationKey, request: request)
-//         { [unowned self] (controller, result, error) in
-//
-//             if let error = error {
-//                 self.show(message: error.localizedDescription)
-//
-//             } else if (result?.isCancelled == true) {
-//                 self.show(message: "Transaction Cancelled")
-//
-//             } else if let nonce = result?.paymentMethod?.nonce{
-//                self.sendRequestPaymentToServer(nonce: nonce,amount:amt,type:planType)
-//             }
-//             controller.dismiss(animated: true, completion: nil)
-//         }
-//
-//         self.present(dropIn!, animated: true, completion: nil)
-//     }
-     func show(message: String) {
-         DispatchQueue.main.async {
-             let alertController = UIAlertController(title: message, message: "", preferredStyle: .alert)
-             alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-             self.present(alertController, animated: true, completion: nil)
-         }
-     }
-    func getCurrentShortDate() -> String {
-        let todaysDate = NSDate()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let DateInFormat = dateFormatter.string(from: todaysDate as Date)
-
-        return DateInFormat
-    }
-    func sendRequestPaymentToServer(nonce: String,amount: String,type: String) {
-         print(nonce)
-        let datee = getCurrentShortDate()
-            self.showProgress()
-            
-                  let userID = UserDefaults.standard.value(forKey: "UserID")
-                      let parameter : [String : Any] = [
-        "users_id":"\(userID!)",
-        "amount":amount,
-        "paymentMethodNonce":nonce,
-        "payment_date":"\(datee)",
-        "payment_plan_id":"\(songId)",
-        "payment_plan_name":"\(songName)",
-        "package_type":type
-        ]
-                      print(parameter)
-            networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.Payment.caseValue, parameter: parameter) { (response) in
-                print(response)
-                self.hideProgress()
-                let dic = response as! NSDictionary
-                if dic.value(forKey: "success") as!Bool == true{
-                 
-                            }
-                            else{
-                                self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
-                            }
+                
+              
+            }
+            else{
+                self.ShowAlertView(title: AppName, message: dic.value(forKey: "messages")as! String, viewController: self)
             }
         }
+    }
     
 }
 
@@ -227,9 +245,11 @@ extension SoundsViewController : UICollectionViewDelegate,UICollectionViewDataSo
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SoundNatureCollectionCell", for: indexPath) as! SoundNatureCollectionCell
             cell.natureImageLock.isHidden = true
             let indexNature = soundScapesArr[indexPath.item]
+            self.payment_plan_id = "\((indexNature as AnyObject).value(forKey: "nature_id") as! NSNumber)"
+            self.payment_plan_name = "\((indexNature as AnyObject).value(forKey: "nature_name") as! String)"
             if let imageString = (indexNature as AnyObject).value(forKey: "images") as? String {
                 if URL(string: (imageString) ) != nil {
-                    cell.natureImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
+                    cell.natureImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:nil)
                     cell.natureImage.contentMode = .scaleToFill
                 }
             }
@@ -242,7 +262,7 @@ extension SoundsViewController : UICollectionViewDelegate,UICollectionViewDataSo
             let indexNature = musicArr[indexPath.item]
             if let imageString = (indexNature as AnyObject).value(forKey: "images") as? String {
                 if URL(string: (imageString) ) != nil {
-                    cell.natureImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:#imageLiteral(resourceName: "Professional"))
+                    cell.natureImage.sd_setImage(with: URL(string: (imageString) ), placeholderImage:nil)
                     cell.natureImage.contentMode = .scaleToFill
                 }
             }
@@ -273,11 +293,15 @@ extension SoundsViewController : UICollectionViewDelegate,UICollectionViewDataSo
                     fetchClientToken()
                 }else {
                     if let audio = (indexNature as AnyObject).value(forKey: "songs") as? String {
-                        _ = UIStoryboard(name: "Main", bundle: nil)
-                        let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-                        let url = NSURL(string: audio)
-                        viewController.audioUrl = url!
-                        self.navigationController?.pushViewController(viewController, animated: true)
+                           let GotoAffirmation = self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+                            
+                            GotoAffirmation.titleName = "Soundscapes"
+                            GotoAffirmation.subTitle = (indexNature as AnyObject).value(forKey: "nature_name") as! String
+                            GotoAffirmation.uploadRecordingUrl = (indexNature as AnyObject).value(forKey: "songs") as! String
+                            GotoAffirmation.isComesFrom = "sounds"
+                        GotoAffirmation.soundImage = (indexNature as AnyObject).value(forKey: "images") as! String
+                            self.navigationController?.pushViewController(GotoAffirmation, animated: true)
+                        
                     }
                 }
             }
@@ -285,27 +309,30 @@ extension SoundsViewController : UICollectionViewDelegate,UICollectionViewDataSo
         else{
             let indexNature = musicArr[indexPath.item]
             if let lockStatus = (indexNature as AnyObject).value(forKey: "lockUnlockStatus") as? Int {
-                           if lockStatus == 0 {
-                               PromoCodeView.tag = indexPath.item
-                               isMusic = true
-                               PromoCodeView.isHidden = false
-                            if let id = (indexNature as AnyObject).value(forKey: "nature_id") as? Int {
-                                songId = id
-                            }
-                            if let name = (indexNature as AnyObject).value(forKey: "nature_name") as? String {
-                                songName = name
-                            }
-                               fetchClientToken()
-                           }else {
-                            if let audio = (indexNature as AnyObject).value(forKey: "songs") as? String {
-                                           _ = UIStoryboard(name: "Main", bundle: nil)
-                                           let viewController =  self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
-                                           let url = NSURL(string: audio)
-                                           viewController.audioUrl = url!
-                                           self.navigationController?.pushViewController(viewController, animated: true)
-                                       }
+                if lockStatus == 0 {
+                    PromoCodeView.tag = indexPath.item
+                    isMusic = true
+                    PromoCodeView.isHidden = false
+                    if let id = (indexNature as AnyObject).value(forKey: "nature_id") as? Int {
+                        songId = id
+                    }
+                    if let name = (indexNature as AnyObject).value(forKey: "nature_name") as? String {
+                        songName = name
+                    }
+                    fetchClientToken()
+                }else {
+                    if let audio = (indexNature as AnyObject).value(forKey: "songs") as? String {
+                     let GotoAffirmation = self.storyboard?.instantiateViewController(withIdentifier: "MusicPlayerViewController") as! MusicPlayerViewController
+                        
+                        GotoAffirmation.titleName = "Music"
+                        GotoAffirmation.subTitle = (indexNature as AnyObject).value(forKey: "nature_name") as! String
+                        GotoAffirmation.uploadRecordingUrl = (indexNature as AnyObject).value(forKey: "songs") as! String
+                        GotoAffirmation.isComesFrom = "sounds"
+                        GotoAffirmation.soundImage = (indexNature as AnyObject).value(forKey: "images") as! String
+                        self.navigationController?.pushViewController(GotoAffirmation, animated: true)
+                    }
                 }
-                       }
+            }
         }
     }
     
@@ -313,13 +340,15 @@ extension SoundsViewController : UICollectionViewDelegate,UICollectionViewDataSo
 extension SoundsViewController {
     
     func GetSoundData(){
-        self.showProgress()
+      //  self.showProgress()
         let userID = UserDefaults.standard.value(forKey: "UserID")
         let parameter : [String : Any] = ["user_id": userID as Any]
         print(parameter)
         networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.Sounds.caseValue, parameter: parameter) { (response) in
             print(response)
             self.hideProgress()
+            self.soundScapesArr = NSArray()
+            self.musicArr = NSArray()
             let dic = response as! NSDictionary
             if dic.value(forKey: "success") as!Bool == true{
                 if let data = dic.value(forKey: "data") as? NSDictionary {
@@ -332,6 +361,7 @@ extension SoundsViewController {
                 }
                 self.SoundTableView.dataSource = self
                 self.SoundTableView.delegate = self
+               // self.collectionViewHeight.constant = CGFloat((self.affirmationArray.count / 3) * 120) + 100
                 self.SoundTableView.reloadData()
             }
             else{

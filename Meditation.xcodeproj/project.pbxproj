@@ -47,8 +47,11 @@
 		18AD038D23D5AF9500DB0757 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038C23D5AF9500DB0757 /* RegisterViewController.swift */; };
 		18AD038F23D5D68000DB0757 /* SelectVoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD038E23D5D68000DB0757 /* SelectVoiceViewController.swift */; };
 		18AD039123D5D88700DB0757 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD039023D5D88700DB0757 /* Common.swift */; };
+		6575DDB22494A449001DE4F5 /* ModernSearchBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6575DDB12494A449001DE4F5 /* ModernSearchBar.framework */; };
+		65910F0C2498C51400119833 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65910F0B2498C51300119833 /* GoogleService-Info.plist */; };
 		6597F7582481080E00D54CC9 /* Braintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6597F7572481080E00D54CC9 /* Braintree.framework */; };
 		6597F75A24810B9A00D54CC9 /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6597F75924810B9A00D54CC9 /* BraintreeDropIn.framework */; };
+		65DDC0E724DAB39400848A00 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DDC0E624DAB39400848A00 /* RecordButton.swift */; };
 		9BD15CBE3CFF9EB9C1DE97BE /* Pods_Meditation_MeditationUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */; };
 		AB80B3207F3E8AE6E12BB843 /* Pods_Meditation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C229952E84815CFABE04B78 /* Pods_Meditation.framework */; };
 		CAFACD02BFAE75CFFCA702B2 /* Pods_MeditationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */; };
@@ -56,7 +59,6 @@
 		D86FF61B2440460B00E2883C /* MTCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86FF61A2440460B00E2883C /* MTCircularSlider.swift */; };
 		D87C13FB24499BA100A75C2F /* guitar-songs.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D87C13FA24499BA100A75C2F /* guitar-songs.mp3 */; };
 		D8C5E71E244495BE00A815BF /* dog.wav in Resources */ = {isa = PBXBuildFile; fileRef = D8C5E71D244495BE00A815BF /* dog.wav */; };
-		D8CC3EC02452CF2500A26274 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D8CC3EBF2452CF2500A26274 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,8 +130,11 @@
 		1A0FE023B4011E74DFA8E412 /* Pods-MeditationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeditationTests.debug.xcconfig"; path = "Target Support Files/Pods-MeditationTests/Pods-MeditationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2C229952E84815CFABE04B78 /* Pods_Meditation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meditation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B4499A50130363135D946F2 /* Pods-MeditationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeditationTests.release.xcconfig"; path = "Target Support Files/Pods-MeditationTests/Pods-MeditationTests.release.xcconfig"; sourceTree = "<group>"; };
+		6575DDB12494A449001DE4F5 /* ModernSearchBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ModernSearchBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65910F0B2498C51300119833 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6597F7572481080E00D54CC9 /* Braintree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Braintree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6597F75924810B9A00D54CC9 /* BraintreeDropIn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BraintreeDropIn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65DDC0E624DAB39400848A00 /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		80B5070893B58EB2482013CD /* Pods-Meditation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation.debug.xcconfig"; path = "Target Support Files/Pods-Meditation/Pods-Meditation.debug.xcconfig"; sourceTree = "<group>"; };
 		9934D0BC64302836FFDB8244 /* Pods-Meditation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Meditation.release.xcconfig"; path = "Target Support Files/Pods-Meditation/Pods-Meditation.release.xcconfig"; sourceTree = "<group>"; };
 		C065E92BE45E1694F16CB0D8 /* Pods_MeditationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeditationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,7 +143,6 @@
 		D86FF61A2440460B00E2883C /* MTCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCircularSlider.swift; sourceTree = "<group>"; };
 		D87C13FA24499BA100A75C2F /* guitar-songs.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "guitar-songs.mp3"; sourceTree = "<group>"; };
 		D8C5E71D244495BE00A815BF /* dog.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dog.wav; sourceTree = "<group>"; };
-		D8CC3EBF2452CF2500A26274 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F9E0AB5BA1A44B780C4CAE6D /* Pods_Meditation_MeditationUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Meditation_MeditationUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -147,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6575DDB22494A449001DE4F5 /* ModernSearchBar.framework in Frameworks */,
 				6597F75A24810B9A00D54CC9 /* BraintreeDropIn.framework in Frameworks */,
 				6597F7582481080E00D54CC9 /* Braintree.framework in Frameworks */,
 				1835B97423E8341C0012E133 /* WebKit.framework in Frameworks */,
@@ -176,6 +181,7 @@
 		07652BD3EE595B11E2C84EAA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6575DDB12494A449001DE4F5 /* ModernSearchBar.framework */,
 				6597F75924810B9A00D54CC9 /* BraintreeDropIn.framework */,
 				6597F7572481080E00D54CC9 /* Braintree.framework */,
 				1835B97323E8341B0012E133 /* WebKit.framework */,
@@ -227,8 +233,8 @@
 				18AD038123D5828200DB0757 /* View's */,
 				18AD035523D57B9800DB0757 /* Assets.xcassets */,
 				1874E728240D305700BB9387 /* credentials.plist */,
+				65910F0B2498C51300119833 /* GoogleService-Info.plist */,
 				18AD035A23D57B9800DB0757 /* Info.plist */,
-				D8CC3EBF2452CF2500A26274 /* GoogleService-Info.plist */,
 				18AD035223D57B9200DB0757 /* Meditation.xcdatamodeld */,
 			);
 			path = Meditation;
@@ -299,6 +305,7 @@
 		18AD038223D5831500DB0757 /* SupprotingClasses */ = {
 			isa = PBXGroup;
 			children = (
+				65DDC0E624DAB39400848A00 /* RecordButton.swift */,
 				18AD038623D58AA500DB0757 /* Designable.swift */,
 				18AD038823D58AB200DB0757 /* ExtensionClass.swift */,
 				1874E724240D0E1300BB9387 /* Singleton.swift */,
@@ -457,7 +464,7 @@
 				18AD035623D57B9800DB0757 /* Assets.xcassets in Resources */,
 				181FF82923D80E590089461B /* Comfortaa-Regular.ttf in Resources */,
 				D8C5E71E244495BE00A815BF /* dog.wav in Resources */,
-				D8CC3EC02452CF2500A26274 /* GoogleService-Info.plist in Resources */,
+				65910F0C2498C51400119833 /* GoogleService-Info.plist in Resources */,
 				1874E729240D305700BB9387 /* credentials.plist in Resources */,
 				18AD035123D57B9200DB0757 /* Main.storyboard in Resources */,
 			);
@@ -629,6 +636,7 @@
 				1846C2E123D7059C003BA6C3 /* LibraryViewController.swift in Sources */,
 				1888B52E23D97BA900130AA5 /* HelpSupportViewController.swift in Sources */,
 				1846C2E723D72446003BA6C3 /* AccountViewController.swift in Sources */,
+				65DDC0E724DAB39400848A00 /* RecordButton.swift in Sources */,
 				18AD038923D58AB200DB0757 /* ExtensionClass.swift in Sources */,
 				18AD038F23D5D68000DB0757 /* SelectVoiceViewController.swift in Sources */,
 				1888B53023D9827000130AA5 /* AccountSettingViewController.swift in Sources */,
@@ -832,9 +840,10 @@
 				CODE_SIGN_ENTITLEMENTS = Meditation/Meditation.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEVELOPMENT_TEAM = 5H47G6338B;
 				INFOPLIST_FILE = Meditation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -856,9 +865,10 @@
 				CODE_SIGN_ENTITLEMENTS = Meditation/Meditation.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEVELOPMENT_TEAM = 5H47G6338B;
 				INFOPLIST_FILE = Meditation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

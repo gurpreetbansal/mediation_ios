@@ -15,7 +15,9 @@ class SingletonClass: NSObject {
         let singletonObject = SingletonClass()
         return singletonObject
     }()
-     var myAudioPlayer:AVPlayer?
+    var myAudioPlayer:AVPlayer?
     var meterTimer:Timer?
+    var FCMToken = ""
+    var isFav = ""
 }
 

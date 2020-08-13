@@ -113,7 +113,7 @@ extension SelectCategoriesViewController{
     
     //MARK:- Get Category list
     func getCategoryList(){
-        self.showProgress()
+       // self.showProgress()
         let userID = UserDefaults.standard.value(forKey: "UserID")
         let parameter : [String : Any] = ["user_id": userID as Any,
                                           "type_id": "2"]
@@ -151,7 +151,7 @@ extension SelectCategoriesViewController{
     //MARK:- Post Set Content API
     
     func postSetContent(){
-        self.showProgress()
+       // self.showProgress()
         let userID = UserDefaults.standard.value(forKey: "UserID")
         let parameter : [String : Any] = ["category_id":chooseCategoryId,
                                           "user_id": userID as Any]

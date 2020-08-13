@@ -7,9 +7,10 @@
 //
 
 import UIKit
-
+import UserNotifications
 class SettingtableCell : UITableViewCell{
     
+    @IBOutlet weak var onOffSwift: UISwitch!
     @IBOutlet var settingLbl: UILabel!
     }
 
@@ -26,6 +27,17 @@ class SettingsViewController: UIViewController {
     @IBAction func LogoutNoTap(_ sender: UIButton) {
         self.LogoutView.isHidden = true
     }
+    
+    @IBAction func onOff(_ sender: UISwitch) {
+        if sender.isOn{
+            UIApplication.shared.registerForRemoteNotifications()
+            self.NotificationHandling(status: "1")
+        }else{
+             UIApplication.shared.unregisterForRemoteNotifications()
+             self.NotificationHandling(status: "0")
+        }
+    }
+    
     
     
     @IBAction func LogoutYesTap(_ sender: DesignableButton) {
@@ -47,6 +59,11 @@ extension SettingsViewController : UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingtableCell", for: indexPath) as! SettingtableCell
         cell.settingLbl.text = SettingData[indexPath.row]
+        if indexPath.row == 0{
+            cell.onOffSwift.isHidden = true
+        }else{
+            cell.onOffSwift.isHidden = true
+        }
         return cell
     }
     
@@ -100,7 +117,20 @@ extension SettingsViewController : UITableViewDataSource,UITableViewDelegate{
 
 //MARK:- API Integration
 extension SettingsViewController{
-    
+    func NotificationHandling(status:String){
+       // self.showProgress()
+        let userID = UserDefaults.standard.value(forKey: "UserID") as! String
+        let parameter : [String:String] = ["user_id":userID, "status":status]
+        
+        networkServices.shared.postDatawithoutHeader(methodName: methodName.UserCase.notificationONOFF.caseValue, parameter: parameter) { (response) in
+            print(response)
+            self.hideProgress()
+            let dic = response as! NSDictionary
+            if dic.value(forKey: "success") as! Bool == true{
+                
+            }
+        }
+    }
      //MARK:- Logout API
       func logout(){
           self.showProgress()
@@ -112,6 +142,7 @@ extension SettingsViewController{
               let dic = response as! NSDictionary
               if dic.value(forKey: "success") as! Bool == true{
                   UserDefaults.standard.removeObject(forKey: "UserID")
+                  UserDefaults.standard.removeObject(forKey: "oldpassword")
                   self.performPushSeguefromController(identifier: "SignInViewController")
               }
           }

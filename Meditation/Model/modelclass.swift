@@ -16,3 +16,7 @@ struct categoryList {
     var category_Image : String
 }
     
+struct SearchCategory {
+    var category_id : String
+    var Category_name : String
+}

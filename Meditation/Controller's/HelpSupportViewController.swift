@@ -46,7 +46,7 @@ class HelpSupportViewController: UIViewController,UITextViewDelegate {
     }
     //MARK:- Submit Detail
        func SubmitDetail(){
-           self.showProgress()
+          // self.showProgress()
            let userId = (UserDefaults.standard.value(forKey: "UserID"))
            
            let parameter : [String:Any] = [ "user_id": (userId as? String)! ,
